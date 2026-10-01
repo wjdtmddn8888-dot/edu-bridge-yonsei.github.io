@@ -1,1 +1,0 @@
-# wjdtmddn8888-dot.github.io

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>문제 · EDU:BRIDGE</title>
+<meta name="description" content="학교 밖 청소년이 겪는 학습·진로·대학 경험의 격차를 통계로 살펴봅니다.">
+<link rel="icon" href="img/symbol.png">
+<link rel="preload" href="assets/pretendard.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/symbol.png" alt="">EDU:BRIDGE<span>팀 육하원칙</span></a>
+    <nav class="links" aria-label="주요 메뉴"><a href="problem.html" aria-current="page">문제</a><a href="activity.html">활동</a><a href="map.html">캠퍼스 맵</a><a href="team.html">팀</a></nav>
+    <div class="nav-right">
+      <a class="btn btn-primary btn-sm" href="map.html">캠퍼스 걸어보기</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="모바일 메뉴"><div class="wrap"><a href="index.html">홈</a><a href="problem.html" aria-current="page">문제</a><a href="activity.html">활동</a><a href="map.html">캠퍼스 맵</a><a href="team.html">팀</a></div></nav>
+</header>
+
+<main>
+<section class="phead">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">홈</a><span>/</span><span>문제</span></div>
+      <span class="eyebrow">Problem</span>
+      <h1>학교 밖 청소년에게<br>대학은 왜 멀까요</h1>
+      <p>학교를 떠난다고 배움이 멈추지는 않습니다. 하지만 학교가 자연스럽게 주던 정보와 경험에서는 멀어집니다. 그 거리를 숫자로 살펴봅니다.</p>
+    </div>
+  </section>
+
+  <section class="page-sec">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">01 · Scale</span>
+        <h2>매년 5만 명이 넘게<br>학교를 떠납니다</h2>
+      </div>
+      <div class="big-grid">
+        <div class="big dark rv">
+          <b>53,617<em>명</em></b>
+          <p>2025학년도 한 해 동안 초·중·고등학교를 떠난 학생 수입니다. 하루 평균 약 147명꼴입니다.</p>
+          <div class="pair">
+            <div><b>1.1<em>%</em></b><p>전체 학업중단율</p></div>
+            <div><b>2.1<em>%</em></b><p>고등학교 학업중단율</p></div>
+          </div>
+          <p class="src">출처: <a href="https://hangyo.com/news/article.html?no=109023" target="_blank" rel="noopener">교육부·한국교육개발원, 2026 교육기본통계</a>(2025학년도 기준, 한국교육신문 2026.8.27 보도). 하루 평균은 연간 수를 365로 나눈 단순 계산입니다.</p>
+        </div>
+        <div class="big rv">
+          <h3 style="font-size:20px">학교를 떠난 이유 1위<br>"심리·정신적 문제"</h3>
+          <p>이 이유로 학교를 그만뒀다는 응답은 꾸준히 늘었습니다.</p>
+          <div class="trend">
+            <div class="trow"><span>2018</span><div class="tbar"><i style="width:44.5%"></i></div><strong>17.8%</strong></div>
+            <div class="trow"><span>2021</span><div class="tbar"><i style="width:57.5%"></i></div><strong>23%</strong></div>
+            <div class="trow"><span>2023</span><div class="tbar"><i style="width:78.5%"></i></div><strong>31.4%</strong></div>
+            <div class="trow now"><span>2025</span><div class="tbar"><i style="width:81.0%"></i></div><strong>32.4%</strong></div>
+          </div>
+          <p class="src">출처: <a href="#sources">성평등가족부, 2025 학교 밖 청소년 실태조사</a>(9~24세 2,811명), 경향신문 2026.4.26 보도 재인용</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-sec sec-alt">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">02 · Three gaps</span>
+        <h2>학습, 진로, 그리고 대학 경험</h2>
+        <p>학교 밖에서 배움을 이어가려는 청소년은 많습니다. 다만 그 길에 필요한 정보와 경험이 부족합니다.</p>
+      </div>
+      <div class="gaps">
+        <article class="gapc rv" id="gap-learn">
+          <div class="lab">
+            <span class="eyebrow">Gap 1</span>
+            <h3>학습</h3>
+            <p>배우려는 마음은 커지는데, 학교 안 학생들과 같은 기회를 얻기는 어렵습니다.</p>
+          </div>
+          <div class="data">
+            <h4>학교를 그만둘 때 검정고시 준비를 계획한 비율</h4>
+            <div class="trend">
+              <div class="trow"><span>2021</span><div class="tbar"><i style="width:58.3%"></i></div><strong>58.3%</strong></div>
+              <div class="trow now"><span>2025</span><div class="tbar"><i style="width:70.7%"></i></div><strong>70.7%</strong></div>
+            </div>
+            <div class="callout">서울의 학교 밖 청소년은 <b>2026년 10월에야 처음으로</b> 고3 전국연합학력평가에 시범 응시할 수 있게 됐습니다. 앞서 법원은 학교 밖 청소년을 일괄 배제한 것이 교육 기회를 부당하게 제한한다고 판단했습니다.</div>
+            <p class="src">출처: <a href="#sources">성평등가족부, 2025 학교 밖 청소년 실태조사</a>(경향신문 2026.4.26) · <a href="https://www.khan.co.kr/article/202608021351011" target="_blank" rel="noopener">경향신문 2026.8.2</a></p>
+          </div>
+        </article>
+
+        <article class="gapc rv" id="gap-career">
+          <div class="lab">
+            <span class="eyebrow">Gap 2</span>
+            <h3>진로</h3>
+            <p>열 명 중 네 명이 진로를 어떻게 그려야 할지 막막하다고 답했습니다.</p>
+          </div>
+          <div class="data">
+            <h4>진로와 관련해 겪는 어려움 (2025)</h4>
+            <div class="hbar"><span>진로 계획을 어떻게 세워야 할지 모름</span><strong>42.4%</strong><div class="tbar"><i style="width:42.4%"></i></div></div>
+            <div class="hbar"><span>내 진로 적성을 모름</span><strong>41.2%</strong><div class="tbar"><i style="width:41.2%"></i></div></div>
+            <div class="hbar"><span>진로를 생각하면 불안하거나 답답함</span><strong>40.9%</strong><div class="tbar"><i style="width:40.9%"></i></div></div>
+            <p class="src">출처: <a href="#sources">성평등가족부, 2025 학교 밖 청소년 실태조사</a>, 헤럴드경제 2026.4.25 보도 재인용. 향후 진로를 아직 정하지 못한 비율은 31.4%입니다.</p>
+          </div>
+        </article>
+
+        <article class="gapc rv" id="gap-campus">
+          <div class="lab">
+            <span class="eyebrow">Gap 3</span>
+            <h3>대학 경험</h3>
+            <p>대학을 목표로 삼는 청소년은 늘고 있습니다. 하지만 대학을 가까이에서 볼 기회는 그만큼 늘지 않았습니다.</p>
+          </div>
+          <div class="data">
+            <h4>학교를 그만둔 뒤 대학 진학을 계획한 비율</h4>
+            <div class="trend">
+              <div class="trow"><span>2021</span><div class="tbar"><i style="width:45.4%"></i></div><strong>22.7%</strong></div>
+              <div class="trow"><span>2023</span><div class="tbar"><i style="width:59.2%"></i></div><strong>29.6%</strong></div>
+              <div class="trow now"><span>2025</span><div class="tbar"><i style="width:71.0%"></i></div><strong>35.5%</strong></div>
+            </div>
+            <p class="src">출처: 여성가족부, 2023 학교 밖 청소년 실태조사(뉴시스 2024.5.9) · <a href="#sources">성평등가족부, 2025 학교 밖 청소년 실태조사</a>(경향신문 2026.4.26)</p>
+            <p class="our"><b>우리의 문제의식</b> · 학교에 다니면 진학 설명회, 선배와의 만남, 대학 탐방처럼 대학을 미리 볼 통로가 자연스럽게 생깁니다. 학교 밖에서는 이 통로를 스스로 찾아야 합니다. EDU:BRIDGE는 이 마지막 격차를 <a href="activity.html">캠퍼스투어</a>로 직접 좁혀보려 합니다.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-sec">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">03 · Mapo</span>
+        <h2>마포구에서 신촌까지</h2>
+      </div>
+      <div class="local">
+        <div class="mini rv">
+          <h3>함께하는 곳</h3>
+          <p class="muted">마포구 학교 밖 청소년 도움센터와 함께합니다. 센터를 이용하는 청소년들에게 연세대 신촌캠퍼스는 가까운 거리에 있지만, 들어가 볼 계기는 많지 않습니다.</p>
+        </div>
+        <div class="mini rv">
+          <h3>마포구 현황</h3>
+          <p class="muted">마포구 단위 통계는 서울교육통계 원문을 확인한 뒤 기준 연도와 함께 추가할 예정입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-sec sec-alt" id="sources">
+    <div class="wrap">
+      <div class="head rv" style="margin-bottom:28px">
+        <span class="eyebrow">Sources</span>
+        <h2 style="font-size:clamp(26px,3vw,34px)">출처</h2>
+        <p style="font-size:15px">실태조사 수치는 정부 발표를 보도한 언론 기사를 재인용했습니다. 원 보고서가 공개되면 원문 기준으로 다시 확인합니다.</p>
+      </div>
+      <ol class="sources">
+        <li>교육부·한국교육개발원, 2026 교육기본통계 (2025학년도 학업중단 현황) — <a href="https://hangyo.com/news/article.html?no=109023" target="_blank" rel="noopener">한국교육신문, 2026.8.27</a></li>
+        <li>성평등가족부, 2025 학교 밖 청소년 실태조사 (2025.5~12월, 전국 9~24세 2,811명, 2026.4.26 발표) — <a href="https://www.khan.co.kr/article/202604261414001/" target="_blank" rel="noopener">경향신문, 2026.4.26</a> · <a href="https://www.heraldk.com/article/2026042519000054239" target="_blank" rel="noopener">헤럴드경제, 2026.4.25</a> · <a href="https://www.khan.co.kr/article/202604261805001" target="_blank" rel="noopener">경향신문 사설, 2026.4.26</a></li>
+        <li>여성가족부, 2023 학교 밖 청소년 실태조사 (2023.4~12월, 2,890명, 2024.5.9 발표) — <a href="https://www.newsis.com/view/NISX20240509_0002728740" target="_blank" rel="noopener">뉴시스, 2024.5.9</a></li>
+        <li>서울시교육청, 학교 밖 청소년 전국연합학력평가 시범 응시 — <a href="https://www.khan.co.kr/article/202608021351011" target="_blank" rel="noopener">경향신문, 2026.8.2</a></li>
+      </ol>
+      <nav class="pager" aria-label="페이지 이동"><a class="nx" href="activity.html"><small>다음 →</small><b>활동</b></a></nav>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/symbol.png" alt="">EDU:BRIDGE</a>
+    <nav aria-label="하단 메뉴"><a href="problem.html">문제</a><a href="activity.html">활동</a><a href="map.html">캠퍼스 맵</a><a href="team.html">팀</a></nav>
+    <p>© 2026 팀 육하원칙 · 연세대학교 시민사회와자원봉사</p>
+  </div>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>

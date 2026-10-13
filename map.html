@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>캠퍼스 맵 · EDU:BRIDGE</title>
+<meta name="description" content="EDU:BRIDGE 캠퍼스투어 코스를 지도로 따라 걸어보세요.">
+<link rel="icon" href="img/symbol.png">
+<link rel="preload" href="assets/pretendard.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/symbol.png" alt="">EDU:BRIDGE<span>팀 육하원칙</span></a>
+    <nav class="links" aria-label="주요 메뉴"><a href="problem.html">문제</a><a href="activity.html">활동</a><a href="map.html" aria-current="page">캠퍼스 맵</a><a href="team.html">팀</a></nav>
+    <div class="nav-right">
+      <a class="btn btn-primary btn-sm" href="map.html">캠퍼스 걸어보기</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="모바일 메뉴"><div class="wrap"><a href="index.html">홈</a><a href="problem.html">문제</a><a href="activity.html">활동</a><a href="map.html" aria-current="page">캠퍼스 맵</a><a href="team.html">팀</a></div></nav>
+</header>
+
+<main>
+<section class="phead">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">홈</a><span>/</span><span>캠퍼스 맵</span></div>
+      <span class="eyebrow">Campus Map</span>
+      <h1>캠퍼스를 따라<br>걸어보세요</h1>
+      <p>EDU:BRIDGE 캠퍼스투어 코스를 지도로 옮겼습니다. 번호를 누르면 각 장소의 이야기를 볼 수 있어요.</p>
+    </div>
+  </section>
+
+  <section class="page-sec">
+    <div class="wrap">
+      <div class="map-ui">
+        <div class="map-wrap rv">
+          <div id="map" role="region" aria-label="캠퍼스투어 코스 지도"></div>
+          <div class="edit-box" id="edit-box" hidden>편집 모드 · 지도를 클릭하면 좌표가 복사됩니다<br><code>지도를 클릭하세요</code></div>
+        </div>
+        <div class="side">
+          <ol class="stops" id="stops" aria-label="코스 목록"></ol>
+          <p class="draft-note">코스 초안입니다. 실제 투어 코스가 확정되면 지점과 사진이 업데이트됩니다. 사진에는 청소년의 얼굴이 나오지 않습니다.</p>
+        </div>
+      </div>
+      <div class="stop-detail rv" id="stop-detail" aria-live="polite"></div>
+      <nav class="pager" aria-label="페이지 이동"><a href="activity.html"><small>← 이전</small><b>활동</b></a><a class="nx" href="team.html"><small>다음 →</small><b>팀</b></a></nav>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/symbol.png" alt="">EDU:BRIDGE</a>
+    <nav aria-label="하단 메뉴"><a href="problem.html">문제</a><a href="activity.html">활동</a><a href="map.html">캠퍼스 맵</a><a href="team.html">팀</a></nav>
+    <p>© 2026 팀 육하원칙 · 연세대학교 시민사회와자원봉사</p>
+  </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>

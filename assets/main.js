@@ -1,5 +1,52 @@
-/* EDU:BRIDGE — 모든 페이지 공용 스크립트 */
+/* EDU:BRIDGE — 모든 페이지 공용 스크립트
+   자주 고치는 데이터는 이 파일 위쪽에 모여 있습니다.
+   - COURSE : 캠퍼스 맵 코스 (map.html)
+   - ARCH   : 활동 기록 (activity.html)
+   - TEAM   : 팀원 (team.html) */
 const $ = id => document.getElementById(id);
+
+/* =========================================================
+   1. 캠퍼스 맵 코스  (map.html)
+   - lat/lng : 좌표. map.html?edit 로 열고 지도를 클릭하면 좌표가 표시됩니다.
+   - img     : 사진 경로 (없으면 "사진 준비 중"으로 표시). 청소년 얼굴이 나오지 않는 사진만 쓰세요.
+   - majors  : 이 근처에서 만날 수 있는 전공. 비워두면 "코스 확정 후 추가"로 표시됩니다.
+   ※ 현재 코스와 좌표는 초안입니다. 실제 투어 코스가 정해지면 고쳐주세요.
+   ========================================================= */
+const COURSE = [
+  { name: "정문", sub: "출발", lat: 37.5597, lng: 126.9369,
+    story: "신촌역에서 연세로를 따라 걸어오면 만나는 첫 장면. 투어는 여기서 모여 출발합니다.",
+    majors: [] },
+  { name: "백양로", sub: "캠퍼스의 중심길", lat: 37.5617, lng: 126.9373,
+    story: "정문에서 언더우드관까지 곧게 이어지는 길. 수업 사이 학생들이 오가는 대학의 하루를 가장 가까이에서 볼 수 있어요.",
+    majors: [] },
+  { name: "학생회관", sub: "대학생활", lat: 37.5627, lng: 126.9365,
+    story: "동아리방과 식당이 모여 있는 곳. 수업 밖에서 대학생들이 무엇을 하며 지내는지 이야기 나눕니다.",
+    majors: [] },
+  { name: "중앙도서관", sub: "공부하는 곳", lat: 37.5638, lng: 126.9368,
+    story: "대학생은 어디서, 어떻게 공부할까요? 열람실과 자료실을 보며 '대학 공부'의 모습을 그려봅니다.",
+    majors: [] },
+  { name: "언더우드관", sub: "캠퍼스의 상징", lat: 37.5659, lng: 126.9386, img: "img/campus.jpg",
+    story: "담쟁이로 덮인 1920년대 석조 건물로, 국가 사적으로 지정되어 있습니다. 백양로 끝에서 캠퍼스를 내려다보며 사진을 남겨요.",
+    majors: [] },
+  { name: "윤동주 시비", sub: "마무리", lat: 37.5662, lng: 126.9376,
+    story: "연희전문학교(연세대의 전신)를 다닌 시인 윤동주를 기리는 시비. 투어를 마무리하며 오늘 본 것 중 기억에 남는 것을 나눕니다.",
+    majors: [] }
+];
+
+/* =========================================================
+   2. 활동 기록  (activity.html)
+   st: "ok" 완료 / "next" 진행 예정 / "todo" 예정
+   사진은 img/ 에 넣고 img: "img/파일명.jpg" 를 추가하세요.
+   ========================================================= */
+const ARCH = [
+  { tag: "준비", t: "협력 기관 컨택 완료", d: "마포구 학교 밖 청소년 도움센터와 연락이 닿아 참여 청소년과의 컨택을 마쳤습니다.", st: "ok", date: "2026.09" },
+  { tag: "활동 1", t: "캠퍼스투어", d: "투어가 끝나면 사진과 소감, 청소년들이 남긴 질문을 이곳에 기록합니다.", st: "next", date: "일정 협의 중" }
+];
+
+/* =========================================================
+   3. 팀원  (team.html)
+   ========================================================= */
+const TEAM = ["유동원", "조현정", "김태연", "송서영", "송주헌", "정현석"];
 
 /* ---------- 모바일 메뉴 ---------- */
 const menuBtn = $("menu-btn"), mnav = $("mnav");
@@ -10,107 +57,108 @@ if (menuBtn && mnav) {
   });
 }
 
-/* ---------- 공통 데이터 ---------- */
 const ST = { next: ["next", "진행 예정"], todo: ["todo", "예정"], ok: ["ok", "완료"] };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const IMG_PH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>`;
 
-const WEEKS = [
-  { n: "W1", t: "대면식", s: "첫 만남", st: "next", goal: "서로의 이름과 관심사를 알고, 6주 동안 함께할 약속을 정합니다.", act: ["자기소개와 아이스브레이킹", "멘토–멘티 매칭", "6주 일정 공유와 약속 정하기"], out: ["멘티별 관심사 메모", "연락 방법 정리"] },
-  { n: "W2", t: "학습 지원", s: "배움", st: "todo", goal: "멘티의 학습 수준과 목표를 파악하고, 맞춤형으로 함께 공부합니다.", act: ["현재 학습 상태 확인", "과목별 1:1 · 소그룹 학습", "다음 주 학습 목표 설정"], out: ["멘티별 학습 기록", "추천 학습 자료 목록"] },
-  { n: "W3", t: "원데이클래스", s: "체험", st: "todo", goal: "교과 밖의 경험으로 새로운 흥미와 자신감을 발견합니다.", act: ["클래스 주제 함께 고르기", "원데이클래스 진행", "결과물 공유와 소감 나누기"], out: ["활동 사진(동의 후)", "결과물 기록"] },
-  { n: "W4", t: "진로 멘토링", s: "진로", st: "todo", goal: "멘토의 경험을 나누며 멘티가 관심 분야와 다음 걸음을 그려봅니다.", act: ["질문 카드로 진로 대화", "관심 분야 탐색", "작은 실천 목표 정하기"], out: ["멘티별 진로 메모", "관심 분야 자료"] },
-  { n: "W5", t: "캠퍼스투어 준비", s: "준비", st: "todo", goal: "멘티가 직접 보고 싶은 곳을 고르고 투어 코스를 함께 만듭니다.", act: ["가고 싶은 장소 의견 모으기", "코스 · 동선 · 시간 정하기", "안전 수칙과 집합 장소 공유"], out: ["캠퍼스투어 코스", "참가자 명단"] },
-  { n: "W6", t: "캠퍼스투어", s: "연결", st: "todo", goal: "연세대학교 신촌캠퍼스를 직접 걸으며 6주의 여정을 마무리합니다.", act: ["캠퍼스 주요 장소 투어", "대학생활 Q&A", "수료와 롤링페이퍼"], out: ["활동 회고", "다음 기수를 위한 기록"] }
-];
+/* ---------- 홈: 코스 지점 수 ---------- */
+document.querySelectorAll("[data-course-count]").forEach(el => { el.textContent = COURSE.length; });
 
-/* ---------- 프로그램 (program.html) ---------- */
-const tabs = $("tabs"), panel = $("panel");
-if (tabs && panel) {
-  let cur = Math.max(0, Math.min(WEEKS.length - 1, (parseInt((location.hash.match(/w(\d)/i) || [])[1]) || 1) - 1));
-  const renderTabs = () => {
-    tabs.innerHTML = WEEKS.map((w, i) => `<button class="tab" role="tab" id="tab-${i}" aria-selected="${i === cur}" tabindex="${i === cur ? 0 : -1}" data-i="${i}"><span class="n">${w.n}</span><span><b>${w.t}</b><small>${w.s}</small></span><span class="dotst ${w.st}"></span></button>`).join("");
-  };
-  const renderPanel = () => {
-    const w = WEEKS[cur], [c, l] = ST[w.st];
-    panel.setAttribute("aria-labelledby", "tab-" + cur);
-    panel.innerHTML = `<div class="panel-top"><div><span class="eyebrow">Week ${cur + 1} of 6</span><h3 style="margin-top:10px">${w.t}</h3><p class="goal">${w.goal}</p></div><span class="badge ${c}">${l}</span></div>
-    <div class="meter">${WEEKS.map((_, i) => `<i class="${i <= cur ? "on" : ""}"></i>`).join("")}</div>
-    <div class="panel-grid"><div class="box"><h4>Activities</h4><ul>${w.act.map(a => `<li>${a}</li>`).join("")}</ul></div><div class="box"><h4>Outputs</h4><ul>${w.out.map(a => `<li>${a}</li>`).join("")}</ul></div></div>`;
-  };
-  const sel = (i, focus) => {
-    cur = (i + WEEKS.length) % WEEKS.length;
-    renderTabs(); renderPanel();
-    history.replaceState(null, "", "#w" + (cur + 1));
-    if (focus) $("tab-" + cur).focus({ preventScroll: true });
-  };
-  tabs.addEventListener("click", e => { const b = e.target.closest(".tab"); if (b) sel(+b.dataset.i); });
-  tabs.addEventListener("keydown", e => {
-    if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); sel(cur + 1, true); }
-    if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); sel(cur - 1, true); }
-  });
-  renderTabs(); renderPanel();
-}
-
-/* ---------- 아카이브 (archive.html) ---------- */
-const ARCH = [
-  { wk: "W0", t: "협력 기관 컨택 완료", d: "마포구 학교 밖 청소년 도움센터와 연락이 닿아 참여 청소년과의 컨택을 마쳤습니다.", st: "ok", date: "2026.09", img: "img/campus.jpg" },
-  { wk: "W1", t: "대면식", d: "활동이 끝나면 사진, 소감, 체크포인트를 기록합니다.", st: "next", date: "10월" },
-  { wk: "W2", t: "학습 지원", d: "기록 전", st: "todo", date: "10월" },
-  { wk: "W3", t: "원데이클래스", d: "기록 전", st: "todo", date: "10월" },
-  { wk: "W4", t: "진로 멘토링", d: "기록 전", st: "todo", date: "11월" },
-  { wk: "W5–6", t: "캠퍼스투어", d: "기록 전", st: "todo", date: "11월" }
-];
+/* ---------- 활동 기록 (activity.html) ---------- */
 const cards = $("cards");
 if (cards) {
-  const IMG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>`;
-  const renderCards = f => {
-    cards.innerHTML = ARCH.filter(a => f === "all" || (f === "ok" ? a.st === "ok" : a.st !== "ok")).map(a => {
-      const [c, l] = ST[a.st];
-      const th = a.img ? `<img src="${a.img}" alt="">` : `<div class="ph">${IMG}<span>사진 업로드 예정</span></div>`;
-      return `<article class="card"><div class="thumb">${th}<span class="wk">${a.wk}</span></div><div class="body"><div class="meta"><span class="badge ${c}">${l}</span><time>${a.date}</time></div><h3>${a.t}</h3><p>${a.d}</p></div></article>`;
-    }).join("");
-  };
-  $("seg").addEventListener("click", e => {
-    const b = e.target.closest("button"); if (!b) return;
-    document.querySelectorAll("#seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    renderCards(b.dataset.f);
-  });
-  renderCards("all");
+  cards.innerHTML = ARCH.map(a => {
+    const [c, l] = ST[a.st];
+    const th = a.img ? `<img src="${esc(a.img)}" alt="">` : `<div class="ph">${IMG_PH}<span>사진 업로드 예정</span></div>`;
+    return `<article class="card"><div class="thumb">${th}<span class="wk">${esc(a.tag)}</span></div><div class="body"><div class="meta"><span class="badge ${c}">${l}</span><time>${esc(a.date)}</time></div><h3>${esc(a.t)}</h3><p>${esc(a.d)}</p></div></article>`;
+  }).join("");
 }
 
-/* ---------- 멘토링 키트 (kit.html) ---------- */
-const qt = $("qtext");
-if (qt) {
-  const Q = [
-    ["요즘 시간 가는 줄 모르고 하는 일이 있어?", "답이 작아도 괜찮아요. 구체적인 장면을 물어보세요."],
-    ["해보고 싶은데 아직 못 해본 게 있어?", "무엇이 막고 있는지 함께 이야기해 보세요."],
-    ["5년 뒤 어떤 하루를 보내고 싶어?", "직업보다 하루의 모습을 먼저 그려보게 하세요."],
-    ["누군가에게 칭찬받았던 일 중에 기억나는 건?", "강점을 발견하는 질문입니다."],
-    ["요즘 가장 궁금한 건 뭐야?", "관심 분야로 이어지는 실마리가 됩니다."],
-    ["대학에 대해 들어본 것 중 가장 궁금한 건?", "캠퍼스투어 코스에 반영할 수 있어요."],
-    ["멘토는 네 나이 때 뭘 고민했을 것 같아?", "멘토의 경험을 자연스럽게 나눌 수 있습니다."],
-    ["이번 주에 해볼 수 있는 작은 일 하나는?", "대화를 실천 목표로 마무리하세요."]
-  ];
-  let qi = 0;
-  const qh = $("qhint"), qc = $("qcount");
-  const showQ = i => {
-    qi = (i + Q.length) % Q.length;
-    qt.style.opacity = 0;
-    setTimeout(() => {
-      qt.textContent = Q[qi][0]; qh.textContent = Q[qi][1];
-      qc.textContent = String(qi + 1).padStart(2, "0") + " / " + String(Q.length).padStart(2, "0");
-      qt.style.opacity = 1;
-    }, 160);
-  };
-  $("qnext").onclick = () => showQ(qi + 1);
-  $("qrand").onclick = () => { let r; do { r = Math.floor(Math.random() * Q.length); } while (r === qi); showQ(r); };
+/* ---------- 활동 페이지: 코스 미리보기 ---------- */
+const coursePreview = $("course-preview");
+if (coursePreview) {
+  coursePreview.innerHTML = COURSE.map((s, i) => `<li><span class="n">${i + 1}</span><b>${esc(s.name)}</b></li>`).join("");
 }
 
 /* ---------- 팀 (team.html) ---------- */
 const teamGrid = $("team-grid");
 if (teamGrid) {
-  const TEAM = ["유동원", "조현정", "김태연", "송서영", "송주헌", "정현석"];
   const COL = ["#003876", "#1d4fbf", "#16805a", "#2f6bff", "#0b5d8f", "#3a3f9e"];
-  teamGrid.innerHTML = TEAM.map((n, i) => `<div class="mem rv"><span class="av" style="background:${COL[i]}">${n.slice(1)}</span><b>${n}</b><small>MENTOR</small></div>`).join("");
+  teamGrid.innerHTML = TEAM.map((n, i) => `<div class="mem rv"><span class="av" style="background:${COL[i % COL.length]}">${esc(n.slice(1))}</span><b>${esc(n)}</b><small>MENTOR</small></div>`).join("");
+  document.querySelectorAll("[data-team-count]").forEach(el => { el.textContent = TEAM.length; });
+}
+
+/* ---------- 캠퍼스 맵 (map.html) ---------- */
+const mapEl = $("map");
+if (mapEl) {
+  const list = $("stops"), detail = $("stop-detail");
+  const editMode = new URLSearchParams(location.search).has("edit");
+  let cur = 0, map = null, markers = [];
+
+  const pinIcon = (i, on) => window.L && L.divIcon({
+    className: "", iconSize: [34, 34], iconAnchor: [17, 17],
+    html: `<span class="pin${on ? " on" : ""}">${i + 1}</span>`
+  });
+
+  const renderList = () => {
+    list.innerHTML = COURSE.map((s, i) => `<li><button type="button" class="stop" data-i="${i}" aria-current="${i === cur}"><span class="n">${i + 1}</span><span><b>${esc(s.name)}</b><small>${esc(s.sub)}</small></span></button></li>`).join("");
+  };
+  const renderDetail = () => {
+    const s = COURSE[cur];
+    const photo = s.img ? `<img src="${esc(s.img)}" alt="${esc(s.name)}">` : `<div class="ph">${IMG_PH}<span>사진 준비 중</span></div>`;
+    const majors = s.majors && s.majors.length
+      ? s.majors.map(m => `<span class="chip">${esc(m)}</span>`).join("")
+      : `<span class="chip muted-chip">코스 확정 후 추가</span>`;
+    detail.innerHTML = `<div class="sd-photo">${photo}</div>
+      <div class="sd-body">
+        <div class="sd-top"><span class="eyebrow">Stop ${cur + 1} / ${COURSE.length}</span>
+          <div class="sd-nav"><button type="button" data-step="-1" aria-label="이전 지점">←</button><button type="button" data-step="1" aria-label="다음 지점">→</button></div></div>
+        <h2>${esc(s.name)}</h2>
+        <p>${esc(s.story)}</p>
+        <div class="sd-majors"><h4>만날 수 있는 전공</h4><div>${majors}</div></div>
+      </div>`;
+  };
+  const select = (i, pan) => {
+    cur = (i + COURSE.length) % COURSE.length;
+    renderList(); renderDetail();
+    if (map) {
+      markers.forEach((m, j) => m.setIcon(pinIcon(j, j === cur)));
+      if (pan) map.panTo([COURSE[cur].lat, COURSE[cur].lng], { animate: true });
+    }
+  };
+  list.addEventListener("click", e => {
+    const b = e.target.closest(".stop"); if (!b) return;
+    select(+b.dataset.i, true);
+    if (matchMedia("(max-width:960px)").matches) detail.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+  detail.addEventListener("click", e => { const b = e.target.closest("[data-step]"); if (b) select(cur + +b.dataset.step, true); });
+
+  if (window.L) {
+    map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: true });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    const pts = COURSE.map(s => [s.lat, s.lng]);
+    L.polyline(pts, { color: getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#2563eb", weight: 4, opacity: .75, dashArray: "2 8", lineCap: "round" }).addTo(map);
+    markers = COURSE.map((s, i) => L.marker([s.lat, s.lng], { icon: pinIcon(i, i === cur), title: s.name, keyboard: true })
+      .addTo(map).on("click", () => select(i, false)));
+    map.fitBounds(L.latLngBounds(pts), { padding: [40, 40] });
+    map.on("focus", () => map.scrollWheelZoom.enable());
+    map.on("blur", () => map.scrollWheelZoom.disable());
+
+    if (editMode) {
+      const box = $("edit-box");
+      box.hidden = false;
+      map.on("click", e => {
+        const t = `lat: ${e.latlng.lat.toFixed(5)}, lng: ${e.latlng.lng.toFixed(5)}`;
+        box.querySelector("code").textContent = t;
+        try { navigator.clipboard.writeText(t); } catch (_) {}
+      });
+    }
+  } else {
+    mapEl.innerHTML = `<div class="map-fallback">지도를 불러오지 못했어요. 아래 코스 목록으로 둘러보세요.</div>`;
+  }
+  select(0, false);
 }
 
 /* ---------- 스크롤 등장 효과 ---------- */

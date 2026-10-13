@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>활동 · EDU:BRIDGE</title>
+<meta name="description" content="학교 밖 청소년과 함께하는 연세대 신촌캠퍼스 투어와 활동 기록">
+<link rel="icon" href="img/symbol.png">
+<link rel="preload" href="assets/pretendard.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/symbol.png" alt="">EDU:BRIDGE<span>팀 육하원칙</span></a>
+    <nav class="links" aria-label="주요 메뉴"><a href="problem.html">문제</a><a href="activity.html" aria-current="page">활동</a><a href="map.html">캠퍼스 맵</a><a href="team.html">팀</a></nav>
+    <div class="nav-right">
+      <a class="btn btn-primary btn-sm" href="map.html">캠퍼스 걸어보기</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="모바일 메뉴"><div class="wrap"><a href="index.html">홈</a><a href="problem.html">문제</a><a href="activity.html" aria-current="page">활동</a><a href="map.html">캠퍼스 맵</a><a href="team.html">팀</a></div></nav>
+</header>
+
+<main>
+<section class="phead">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">홈</a><span>/</span><span>활동</span></div>
+      <span class="eyebrow">What we do</span>
+      <h1>우리가 하는 일</h1>
+      <p>격차 중에서 우리가 직접 좁힐 수 있는 것부터 시작합니다. 첫 활동은 학교 밖 청소년들과 함께 걷는 연세대 신촌캠퍼스 투어입니다.</p>
+    </div>
+  </section>
+
+  <section class="page-sec">
+    <div class="wrap">
+      <div class="act-main">
+        <div class="act-hero rv">
+          <img src="img/campus.jpg" alt="">
+          <span class="badge ok">확정</span>
+          <span class="kicker" style="color:rgba(255,255,255,.8)">활동 1 · 일정 협의 중</span>
+          <h2>캠퍼스투어</h2>
+          <p>마포구 학교 밖 청소년 도움센터의 청소년들과 신촌캠퍼스를 함께 걷습니다. 도서관과 학생회관을 지나며 대학생활을 직접 보고, 궁금한 것을 대학생 멘토에게 묻는 시간입니다.</p>
+        </div>
+        <div class="targets">
+          <div class="target rv">
+            <span class="kicker">겨냥하는 격차 · 대학 경험</span>
+            <h3>'대학'을 실제 장소로</h3>
+            <p>대학 진학을 계획하는 비율은 35.5%까지 늘었지만, 대학을 직접 볼 기회는 드뭅니다. 캠퍼스를 걸어보는 경험으로 막연한 목표를 구체적인 장면으로 바꿉니다.</p>
+          </div>
+          <div class="target rv">
+            <span class="kicker">겨냥하는 격차 · 진로</span>
+            <h3>대학생에게 직접 묻기</h3>
+            <p>42.4%가 진로 계획을 어떻게 세울지 모른다고 답했습니다. 여러 전공의 멘토와 나누는 Q&amp;A로 진로를 그려볼 실마리를 건넵니다.</p>
+          </div>
+          <div class="target rv">
+            <span class="kicker">투어 코스</span>
+            <ol class="course-mini" id="course-preview"></ol>
+            <a class="btn btn-ghost btn-sm" href="map.html" style="justify-self:start;margin-top:6px">지도에서 보기 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="next-act rv">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span><b>활동 2 · 기획 중</b> — 두 번째 활동은 확정되면 이곳에 공개합니다.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-sec sec-alt">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">How</span>
+        <h2>투어는 이렇게 진행해요</h2>
+      </div>
+      <div class="local">
+        <div class="mini rv">
+          <h3>진행 흐름</h3>
+          <ol class="tl">
+            <li><code>01</code><span>정문에서 모여 인사 나누기</span></li>
+            <li><code>02</code><span>코스를 따라 캠퍼스 걷기</span></li>
+            <li><code>03</code><span>대학생활 Q&amp;A — 공부, 전공, 하루 일과</span></li>
+            <li><code>04</code><span>오늘 본 것 중 기억에 남는 것 나누기</span></li>
+          </ol>
+        </div>
+        <div class="mini rv">
+          <h3>멘토의 약속</h3>
+          <ul class="chk">
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>가르치기보다 먼저 듣습니다.</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>학교 밖의 선택을 존중합니다.</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>사진과 개인 정보는 동의를 받고 기록하며, 청소년의 얼굴은 공개하지 않습니다.</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>약속한 시간을 지킵니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-sec">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Archive</span>
+        <h2>활동 기록</h2>
+        <p>활동이 끝나면 사진과 소감을 이곳에 남깁니다.</p>
+      </div>
+      <div class="cards" id="cards"></div>
+      <nav class="pager" aria-label="페이지 이동"><a href="problem.html"><small>← 이전</small><b>문제</b></a><a class="nx" href="map.html"><small>다음 →</small><b>캠퍼스 맵</b></a></nav>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/symbol.png" alt="">EDU:BRIDGE</a>
+    <nav aria-label="하단 메뉴"><a href="problem.html">문제</a><a href="activity.html">활동</a><a href="map.html">캠퍼스 맵</a><a href="team.html">팀</a></nav>
+    <p>© 2026 팀 육하원칙 · 연세대학교 시민사회와자원봉사</p>
+  </div>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>

@@ -39,14 +39,22 @@ const COURSE = [
    사진은 img/ 에 넣고 img: "img/파일명.jpg" 를 추가하세요.
    ========================================================= */
 const ARCH = [
-  { tag: "준비", t: "협력 기관 컨택 완료", d: "마포구 학교 밖 청소년 도움센터와 연락이 닿아 참여 청소년과의 컨택을 마쳤습니다.", st: "ok", date: "2026.09" },
+  { tag: "준비", t: "협력 기관 컨택 완료", d: "마포구 학교 밖 청소년 도움센터 친구랑과 연락이 닿아 참여 청소년과의 컨택을 마쳤습니다.", st: "ok", date: "2026.09" },
   { tag: "활동 1", t: "캠퍼스투어", d: "투어가 끝나면 사진과 소감, 청소년들이 남긴 질문을 이곳에 기록합니다.", st: "next", date: "일정 협의 중" }
 ];
 
 /* =========================================================
    3. 팀원  (team.html)
    ========================================================= */
-const TEAM = ["유동원", "조현정", "김태연", "송서영", "송주헌", "정현석"];
+const TEAM = [
+  { name: "김태연", major: "정치외교학과" },
+  { name: "송서영", major: "응용통계학과" },
+  { name: "송주헌", major: "영어영문학" },
+  { name: "유동원", major: "경제학과" },
+  { name: "정승우", major: "컴퓨터과학과" },
+  { name: "정현석", major: "전기전자공학" },
+  { name: "조현정", major: "언론홍보영상학" }
+];
 
 /* ---------- 모바일 메뉴 ---------- */
 const menuBtn = $("menu-btn"), mnav = $("mnav");
@@ -83,8 +91,8 @@ if (coursePreview) {
 /* ---------- 팀 (team.html) ---------- */
 const teamGrid = $("team-grid");
 if (teamGrid) {
-  const COL = ["#003876", "#1d4fbf", "#16805a", "#2f6bff", "#0b5d8f", "#3a3f9e"];
-  teamGrid.innerHTML = TEAM.map((n, i) => `<div class="mem rv"><span class="av" style="background:${COL[i % COL.length]}">${esc(n.slice(1))}</span><b>${esc(n)}</b><small>MENTOR</small></div>`).join("");
+  const COL = ["#003876", "#1d4fbf", "#16805a", "#2f6bff", "#0b5d8f", "#3a3f9e", "#0f766e"];
+  teamGrid.innerHTML = TEAM.map((m, i) => `<div class="mem rv"><span class="av" style="background:${COL[i % COL.length]}">${esc(m.name.slice(1))}</span><b>${esc(m.name)}</b><span class="major">${esc(m.major)}</span></div>`).join("");
   document.querySelectorAll("[data-team-count]").forEach(el => { el.textContent = TEAM.length; });
 }
 

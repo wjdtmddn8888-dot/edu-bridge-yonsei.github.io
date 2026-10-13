@@ -1,7 +1,7 @@
 /* EDU:BRIDGE — 모든 페이지 공용 스크립트
    자주 고치는 데이터는 이 파일 위쪽에 모여 있습니다.
    - COURSE : 캠퍼스 맵 코스 (map.html)
-   - ARCH   : 활동 기록 (activity.html)
+   - ARCH   : 활동 기록 (archive.html)
    - TEAM   : 팀원 (team.html) */
 const $ = id => document.getElementById(id);
 
@@ -34,7 +34,7 @@ const COURSE = [
 ];
 
 /* =========================================================
-   2. 활동 기록  (activity.html)
+   2. 활동 기록  (archive.html)
    st: "ok" 완료 / "next" 진행 예정 / "todo" 예정
    사진은 img/ 에 넣고 img: "img/파일명.jpg" 를 추가하세요.
    ========================================================= */
@@ -69,17 +69,28 @@ const ST = { next: ["next", "진행 예정"], todo: ["todo", "예정"], ok: ["ok
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const IMG_PH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>`;
 
-/* ---------- 홈: 코스 지점 수 ---------- */
+/* ---------- 코스 지점 수 · 팀 인원 ---------- */
 document.querySelectorAll("[data-course-count]").forEach(el => { el.textContent = COURSE.length; });
+document.querySelectorAll("[data-team-count]").forEach(el => { el.textContent = TEAM.length; });
 
-/* ---------- 활동 기록 (activity.html) ---------- */
+/* ---------- 활동 기록 (archive.html) ---------- */
 const cards = $("cards");
 if (cards) {
-  cards.innerHTML = ARCH.map(a => {
-    const [c, l] = ST[a.st];
-    const th = a.img ? `<img src="${esc(a.img)}" alt="">` : `<div class="ph">${IMG_PH}<span>사진 업로드 예정</span></div>`;
-    return `<article class="card"><div class="thumb">${th}<span class="wk">${esc(a.tag)}</span></div><div class="body"><div class="meta"><span class="badge ${c}">${l}</span><time>${esc(a.date)}</time></div><h3>${esc(a.t)}</h3><p>${esc(a.d)}</p></div></article>`;
-  }).join("");
+  const renderCards = f => {
+    const rows = ARCH.filter(a => f === "all" || (f === "ok" ? a.st === "ok" : a.st !== "ok"));
+    cards.innerHTML = rows.length ? rows.map(a => {
+      const [c, l] = ST[a.st];
+      const th = a.img ? `<img src="${esc(a.img)}" alt="">` : `<div class="ph">${IMG_PH}<span>사진 업로드 예정</span></div>`;
+      return `<article class="card"><div class="thumb">${th}<span class="wk">${esc(a.tag)}</span></div><div class="body"><div class="meta"><span class="badge ${c}">${l}</span><time>${esc(a.date)}</time></div><h3>${esc(a.t)}</h3><p>${esc(a.d)}</p></div></article>`;
+    }).join("") : `<p class="muted">해당하는 기록이 아직 없어요.</p>`;
+  };
+  const seg = $("seg");
+  if (seg) seg.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    renderCards(b.dataset.f);
+  });
+  renderCards("all");
 }
 
 /* ---------- 활동 페이지: 코스 미리보기 ---------- */
@@ -93,7 +104,6 @@ const teamGrid = $("team-grid");
 if (teamGrid) {
   const COL = ["#003876", "#1d4fbf", "#16805a", "#2f6bff", "#0b5d8f", "#3a3f9e", "#0f766e"];
   teamGrid.innerHTML = TEAM.map((m, i) => `<div class="mem rv"><span class="av" style="background:${COL[i % COL.length]}">${esc(m.name.slice(1))}</span><b>${esc(m.name)}</b><span class="major">${esc(m.major)}</span></div>`).join("");
-  document.querySelectorAll("[data-team-count]").forEach(el => { el.textContent = TEAM.length; });
 }
 
 /* ---------- 캠퍼스 맵 (map.html) ---------- */

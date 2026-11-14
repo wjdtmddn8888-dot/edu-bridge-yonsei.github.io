@@ -471,3 +471,8 @@ a.org:hover{color:var(--accent)}
 @media (max-width:760px){.targets.two{grid-template-columns:1fr}}
 @media (max-width:520px){.acard{padding:24px}.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(2n){border-right:0}.facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 .draft-note{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:14px;padding:14px 16px;background:var(--bg-2)}
+/* 홈 히어로: 학교 사진 위에 일정 카드를 겹쳐 놓음 */
+.visual .photo{aspect-ratio:4/3}
+.visual .photo+.sched{position:relative;margin:-72px 24px 0;padding:16px;gap:10px}
+.visual .photo+.sched .sched-row{padding:12px 14px}
+@media (max-width:480px){.visual .photo+.sched{margin:-48px 10px 0;padding:12px}}

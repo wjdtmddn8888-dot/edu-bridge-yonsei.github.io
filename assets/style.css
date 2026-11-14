@@ -478,3 +478,37 @@ a.org:hover{color:var(--accent)}
 .visual .photo+.sched{position:relative;margin:-32px 24px 0;padding:16px;gap:10px}
 .visual .photo+.sched .sched-row{padding:12px 14px}
 @media (max-width:480px){.visual .photo+.sched{margin:-18px 10px 0;padding:12px}}
+
+/* ===== v4: 가독성 ===== */
+/* 본문: 줄 간격을 넓히고, 본문 글씨는 흐린 회색 대신 진한 색으로, 작은 글씨는 한 단계씩 키움 */
+body{line-height:1.7}
+h1,h2,h3,h4{line-height:1.3;letter-spacing:-.03em}
+p{text-wrap:pretty}
+.phead h1{line-height:1.2}
+.phead p{font-size:17px;line-height:1.75;color:var(--ink-2);max-width:38em}
+.page-sec .head{gap:12px;margin-bottom:40px}
+.page-sec .head h2{font-size:clamp(27px,3.6vw,40px);line-height:1.28}
+.page-sec .head p{font-size:17px;color:var(--ink-2);max-width:36em}
+.tile:not(.t-why) p,.target p,.xcard:not(.feature) p,.card p,.gapc .lab p,.mini p.muted{color:var(--ink-2)}
+.tile p,.target p,.mini p,.gapc .lab p,.tl li,.chk li,.callout{font-size:16px}
+.tl li{line-height:1.6}
+.chk li{line-height:1.6}
+.target p{max-width:46em}
+.gapc .data>p{max-width:42em}
+.big{gap:12px}
+.big p{line-height:1.7}
+.src,.t-why .note{font-size:13px;line-height:1.6}
+.t-why .note{color:rgba(255,255,255,.72)}
+.big.dark .src{color:rgba(255,255,255,.75)}
+.kicker{font-size:14px}
+.facts dt{font-size:13px}
+.our{font-size:15px}
+.draft-note{font-size:14px}
+.sources{font-size:15px;gap:12px;line-height:1.65;max-width:60em}
+
+/* 섹션 머리 라벨 */
+.chap{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:-.01em}
+section[id]{scroll-margin-top:64px}
+@media (max-width:640px){.page-sec .head{margin-bottom:28px}}
+/* 메뉴가 7개라 중간 폭에서는 간격을 줄임 */
+@media (max-width:1080px){.links a{padding:8px 9px}.brand span{display:none}}

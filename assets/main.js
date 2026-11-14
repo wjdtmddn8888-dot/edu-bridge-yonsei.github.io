@@ -12,12 +12,12 @@ const $ = id => document.getElementById(id);
    사진 공개 여부는 기관과 확인하세요.
    ========================================================= */
 const ARCH = [
-  { tag: "준비", t: "협력 기관 조사와 연락", d: "서울 지역 학교 밖 청소년 지원센터, 교육복지센터, 청소년센터, 복지관 등 10여 곳을 조사하고 연락을 시도했습니다.", st: "ok", date: "2026.09.21" },
+  { tag: "준비", t: "협력 기관 조사와 연락", d: "서울 지역 학교 밖 청소년 지원센터, 교육복지센터, 청소년센터, 복지관 등 20여 곳을 조사하고 연락을 시도했습니다.", st: "ok", date: "2026.09.21" },
   { tag: "준비", t: "마포구 학교 밖 청소년 도움센터 친구랑 사전 미팅", d: "친구랑과 사전 미팅을 했습니다. 활동으로는 이어지지 않았습니다.", st: "ok", date: "2026.10.08" },
   { tag: "준비", t: "서대문교육복지센터 사전 미팅", d: "서대문교육복지센터와 사전 미팅을 했고, 센터의 소개로 은평구 서울특별시립 아동푸른센터와 연결됐습니다.", st: "ok", date: "2026.11.05" },
   { tag: "준비", t: "활동 기획안 작성", d: "계산기 클리커 만들기와 크런치 말랑이 만들기의 진행 순서, 준비물, 멘토 역할을 정리했습니다.", st: "ok", date: "2026.11" },
-  { tag: "활동 1", t: "나만의 계산기 클리커 만들기", d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 완성한 작품 사진과 소감을 이곳에 기록합니다.", st: "next", date: "2026.11.27" },
-  { tag: "활동 2", t: "크런치 말랑이 만들기", d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 완성한 작품 사진과 소감을 이곳에 기록합니다.", st: "todo", date: "2026.12.07" }
+  { tag: "활동 1", t: "나만의 계산기 클리커 만들기", d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.", st: "next", date: "2026.11.27" },
+  { tag: "활동 2", t: "크런치 말랑이 만들기", d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.", st: "todo", date: "2026.12.07" }
 ];
 
 /* =========================================================
@@ -44,7 +44,6 @@ if (menuBtn && mnav) {
 
 const ST = { next: ["next", "진행 예정"], todo: ["todo", "예정"], ok: ["ok", "완료"] };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const IMG_PH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>`;
 
 /* ---------- 팀 인원 ---------- */
 document.querySelectorAll("[data-team-count]").forEach(el => { el.textContent = TEAM.length; });
@@ -56,9 +55,10 @@ if (cards) {
     const rows = ARCH.filter(a => f === "all" || (f === "ok" ? a.st === "ok" : a.st !== "ok"));
     cards.innerHTML = rows.length ? rows.map(a => {
       const [c, l] = ST[a.st];
-      const th = a.img ? `<img src="${esc(a.img)}" alt="">` : `<div class="ph">${IMG_PH}<span>사진 업로드 예정</span></div>`;
-      return `<article class="card"><div class="thumb">${th}<span class="wk">${esc(a.tag)}</span></div><div class="body"><div class="meta"><span class="badge ${c}">${l}</span><time>${esc(a.date)}</time></div><h3>${esc(a.t)}</h3><p>${esc(a.d)}</p></div></article>`;
-    }).join("") : `<p class="muted">해당하는 기록이 아직 없어요.</p>`;
+      /* 사진이 있는 기록만 사진을 보여 줍니다. 없으면 글만 나옵니다. */
+      const ph = a.img ? `<img class="tl-img" src="${esc(a.img)}" alt="${esc(a.t)} 사진" loading="lazy">` : "";
+      return `<li class="tl-item ${c}"><time>${esc(a.date)}</time><span class="tl-dot" aria-hidden="true"></span><article class="tl-card"><div class="meta"><span class="tl-tag">${esc(a.tag)}</span><span class="badge ${c}">${l}</span></div><h3>${esc(a.t)}</h3><p>${esc(a.d)}</p>${ph}</article></li>`;
+    }).join("") : `<li class="tl-empty muted">해당하는 기록이 아직 없어요.</li>`;
   };
   const seg = $("seg");
   if (seg) seg.addEventListener("click", e => {

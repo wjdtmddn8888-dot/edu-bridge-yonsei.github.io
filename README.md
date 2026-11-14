@@ -21,7 +21,7 @@
 | `partners.html` | 함께하는 곳 (기관을 찾아온 과정, 협력 기관, 만나는 아동·청소년) |
 | `activity.html` | 활동 (두 활동의 날짜·진행 순서) |
 | `how.html` | 진행 방식 (소그룹 진행, 멘토 역할, 멘토의 약속) |
-| `archive.html` | 아카이브 (활동 기록, 완료/예정 필터) |
+| `archive.html` | 아카이브 (날짜순 타임라인, 완료/예정 필터. 사진은 `img`를 넣은 기록에만 표시) |
 | `team.html` | 팀 (팀원과 학과) |
 
 예전 주소(`map.html`, `problem.html`, `program.html`, `kit.html`)는 새 페이지로 자동 이동합니다.

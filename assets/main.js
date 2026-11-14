@@ -44,7 +44,6 @@ if (menuBtn && mnav) {
 
 const ST = { next: ["next", "진행 예정"], todo: ["todo", "예정"], ok: ["ok", "완료"] };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const IMG_PH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>`;
 
 /* ---------- 팀 인원 ---------- */
 document.querySelectorAll("[data-team-count]").forEach(el => { el.textContent = TEAM.length; });
@@ -56,9 +55,10 @@ if (cards) {
     const rows = ARCH.filter(a => f === "all" || (f === "ok" ? a.st === "ok" : a.st !== "ok"));
     cards.innerHTML = rows.length ? rows.map(a => {
       const [c, l] = ST[a.st];
-      const th = a.img ? `<img src="${esc(a.img)}" alt="">` : `<div class="ph">${IMG_PH}<span>사진 업로드 예정</span></div>`;
-      return `<article class="card"><div class="thumb">${th}<span class="wk">${esc(a.tag)}</span></div><div class="body"><div class="meta"><span class="badge ${c}">${l}</span><time>${esc(a.date)}</time></div><h3>${esc(a.t)}</h3><p>${esc(a.d)}</p></div></article>`;
-    }).join("") : `<p class="muted">해당하는 기록이 아직 없어요.</p>`;
+      /* 사진이 있는 기록만 사진을 보여 줍니다. 없으면 글만 나옵니다. */
+      const ph = a.img ? `<img class="tl-img" src="${esc(a.img)}" alt="${esc(a.t)} 사진" loading="lazy">` : "";
+      return `<li class="tl-item ${c}"><time>${esc(a.date)}</time><span class="tl-dot" aria-hidden="true"></span><article class="tl-card"><div class="meta"><span class="tl-tag">${esc(a.tag)}</span><span class="badge ${c}">${l}</span></div><h3>${esc(a.t)}</h3><p>${esc(a.d)}</p>${ph}</article></li>`;
+    }).join("") : `<li class="tl-empty muted">해당하는 기록이 아직 없어요.</li>`;
   };
   const seg = $("seg");
   if (seg) seg.addEventListener("click", e => {

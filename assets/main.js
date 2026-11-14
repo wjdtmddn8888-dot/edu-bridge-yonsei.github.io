@@ -76,33 +76,6 @@ if (teamGrid) {
   teamGrid.innerHTML = TEAM.map((m, i) => `<div class="mem rv"><span class="av" style="background:${COL[i % COL.length]}">${esc(m.name.slice(1))}</span><b>${esc(m.name)}</b><span class="major">${esc(m.major)}</span></div>`).join("");
 }
 
-/* ---------- 챕터 목차: 지금 읽는 챕터 표시 (about.html, activity.html) ---------- */
-const toc = $("toc");
-if (toc) {
-  const list = toc.querySelector("ol");
-  const links = [...toc.querySelectorAll("a")];
-  const secs = links.map(a => document.getElementById(a.hash.slice(1)));
-  let cur = null, tick = false;
-  const spy = () => {
-    tick = false;
-    let i = -1;
-    secs.forEach((s, k) => { if (s && s.getBoundingClientRect().top <= 140) i = k; });
-    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) i = links.length - 1;
-    const a = links[i] || null;
-    if (a === cur) return;
-    if (cur) cur.removeAttribute("aria-current");
-    cur = a;
-    if (a) {
-      a.setAttribute("aria-current", "location");
-      /* 좁은 화면에서 목차가 옆으로 넘칠 때, 현재 챕터가 보이도록 목차만 옆으로 이동 */
-      list.scrollTo({ left: a.offsetLeft - list.offsetLeft - (list.clientWidth - a.offsetWidth) / 2 });
-    }
-  };
-  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(spy); } }, { passive: true });
-  addEventListener("resize", spy);
-  spy();
-}
-
 /* ---------- 스크롤 등장 효과 ---------- */
 if (matchMedia("(prefers-reduced-motion:no-preference)").matches && "IntersectionObserver" in window) {
   const io = new IntersectionObserver(es => es.forEach(e => {

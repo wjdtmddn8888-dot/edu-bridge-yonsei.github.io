@@ -569,7 +569,7 @@ section{padding-block:88px}
 .pager a:hover b{color:var(--accent)}
 
 /* ===== v6: 워드마크·라벨 ===== */
-/* EDU:BRIDGE는 기존 글꼴 그대로, 그라데이션 대신 단색. 배경 빛번짐·격자 제거 */
+/* Edu:Bridge는 기존 글꼴 그대로, 그라데이션 대신 단색. 배경 빛번짐·격자 제거 */
 .hero::before,.hero::after{display:none}
 .hero h1 .grad{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--brand)}
 /* 영문 라벨(ABOUT, WHY 등)과 숫자 라벨: 코딩용 글꼴 대신 본문 글꼴 */
@@ -682,7 +682,7 @@ section{padding-block:88px}
 }
 
 /* ===== v8: 메뉴·푸터 로고 글꼴 (Plus Jakarta Sans 700) ===== */
-/* 각 HTML에서 EDU:BRIDGE 글자만 불러옴 (text=EDU:BRIDGE) */
+/* 각 HTML에서 Edu:Bridge 글자만 불러옴 (text=Edu:Bridge) */
 .brand{font-family:"Plus Jakarta Sans",var(--f-sans);font-weight:700;letter-spacing:-.02em}
 .brand span{font-family:var(--f-sans)}
 

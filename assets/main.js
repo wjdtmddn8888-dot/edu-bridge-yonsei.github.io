@@ -1,4 +1,4 @@
-/* EDU:BRIDGE — 모든 페이지 공용 스크립트
+/* Edu:Bridge — 모든 페이지 공용 스크립트
    자주 고치는 데이터는 이 파일 위쪽에 모여 있습니다.
    - ARCH : 활동 기록 (archive.html)
    - TEAM : 팀원 (team.html)

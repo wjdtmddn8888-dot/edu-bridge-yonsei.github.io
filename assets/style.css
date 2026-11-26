@@ -680,3 +680,30 @@ section{padding-block:88px}
 /* 각 HTML에서 EDU:BRIDGE 글자만 불러옴 (text=EDU:BRIDGE) */
 .brand{font-family:"Plus Jakarta Sans",var(--f-sans);font-weight:700;letter-spacing:-.02em}
 .brand span{font-family:var(--f-sans)}
+
+/* 카드 아이콘 */
+.ic-s{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-bottom:6px}
+.ic-s svg{width:22px;height:22px}
+.target .ic-s{background:var(--ivy-soft);color:var(--ivy)}
+.mini .ic-s{margin-bottom:12px}
+/* 카드 안 사진 */
+.card-ph{margin:-22px -22px 14px;border-radius:16px 16px 0 0;overflow:hidden;position:relative;aspect-ratio:16/9;background:var(--bg-2)}
+.card-ph img,.journey-ph img,.team-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.card-ph figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.55);padding:4px 10px;border-radius:999px}
+/* 함께하는 곳: 타임라인 + 사진 */
+.journey{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:start}
+.journey-ph{margin:0;display:grid;gap:8px}
+.journey-ph img{border-radius:14px;aspect-ratio:4/3}
+.journey-ph figcaption,.team-photo figcaption{font-size:13px;color:var(--muted)}
+.journey-ph a,.team-photo a{text-decoration:underline}
+@media (max-width:860px){.journey{grid-template-columns:1fr}}
+/* 팀 사진 */
+.team-photo{margin:0 0 28px;display:grid;gap:8px}
+.team-photo img{border-radius:20px;aspect-ratio:21/8;object-position:50% 45%}
+/* 배경: 막대 그래프 (어두운 카드 안) */
+.chart{display:grid;gap:10px;margin:6px 0 4px}
+.chart .gaprow{grid-template-columns:96px minmax(0,1fr) 64px;font-size:13px}
+.chart .gaprow strong{text-align:right;color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.chart .bar{height:10px}
+.chart .chart-k{font-size:12px !important;font-weight:700;color:rgba(255,255,255,.7) !important;margin-top:6px;letter-spacing:.02em}
+.chart .chart-k:first-child{margin-top:0}

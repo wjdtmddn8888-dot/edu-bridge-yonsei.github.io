@@ -27,7 +27,7 @@ const ARCH = [
     imgs: ["img/chingurang-1.jpg", "img/chingurang-2.jpg", "img/chingurang-3.jpg", "img/chingurang-4.jpg"] },
   { id: "team-1008", group: "prep", tag: "준비", t: "조 회의", st: "ok", date: "2026.10.08",
     d: "친구랑과의 사전 미팅을 마친 뒤 조원끼리 따로 모여 회의를 했습니다.",
-    imgs: ["img/team-meeting-1008.jpg"] },
+    imgs: ["img/team-meeting-1008.jpg", "img/team-meeting-1008-2.jpg"] },
   { id: "seodaemun", group: "prep", tag: "준비", t: "서대문교육복지센터 사전 미팅", st: "ok", date: "2026.11.05",
     place: "서대문교육복지센터",
     d: "서대문교육복지센터와 사전 미팅을 했고, 센터의 소개로 은평구 서울특별시립 아동푸른센터와 연결됐습니다.",

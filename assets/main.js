@@ -70,21 +70,26 @@ const TEAM = [
 
 /* =========================================================
    3. 예산  (result.html)
-   act  : 활동 이름 (같은 활동끼리 붙여 적으면 한 칸으로 묶입니다)
+   act  : 활동 이름 (같은 활동끼리 붙여 적으면 한 묶음이 되고, 묶음별 소계가 붙습니다)
    item : 품목
+   shop : 구매처 (선택) — 품목 아래 작은 글씨로 나옵니다
    qty  : 수량 (모르면 "" → "–"로 표시)
    cost : 금액, 숫자만 (예: 12000). 아직 모르면 null → "정리 중"
    합계는 자동으로 계산됩니다.
    ========================================================= */
 const BUDGET = [
-  { act: "활동 1 · 계산기 클리커", item: "기본 계산기", qty: "", cost: null },
-  { act: "활동 1 · 계산기 클리커", item: "캐릭터·알파벳 스티커", qty: "", cost: null },
-  { act: "활동 1 · 계산기 클리커", item: "입체 파츠", qty: "", cost: null },
-  { act: "활동 1 · 계산기 클리커", item: "포장재", qty: "", cost: null },
+  { act: "활동 1 · 계산기 클리커", item: "넓은형 계산기 12자리 (핑크)", shop: "다이소", qty: "11개", cost: 55000 },
+  { act: "활동 1 · 계산기 클리커", item: "꾸미기 재료 · 키티", shop: "쿠팡", qty: "1개", cost: 6030 },
+  { act: "활동 1 · 계산기 클리커", item: "꾸미기 재료 · 작귀", shop: "쿠팡", qty: "1개", cost: 12900 },
+  { act: "활동 1 · 계산기 클리커", item: "3D 입체 스티커 (블루레몬·서커스)", shop: "다이소", qty: "2개", cost: 2000 },
+  { act: "활동 1 · 계산기 클리커", item: "3D 입체 스티커 (말차)", shop: "다이소", qty: "1개", cost: 1000 },
+  { act: "활동 1 · 계산기 클리커", item: "보석 원형 스티커 3mm (핑크)", shop: "다이소", qty: "1개", cost: 1000 },
+  { act: "활동 1 · 계산기 클리커", item: "종이 양면테이프", shop: "다이소", qty: "1개", cost: 1000 },
   { act: "활동 2 · 크런치 말랑이", item: "크런치 말랑이 키트", qty: "", cost: null },
   { act: "활동 2 · 크런치 말랑이", item: "개별 포장재", qty: "", cost: null },
-  { act: "활동 3 · 문제집 나눔", item: "우공비 문제집", qty: "", cost: null },
-  { act: "활동 4 · 만화책 나눔", item: "만화책", qty: "", cost: null }
+  { act: "활동 3 · 문제집 나눔", item: "우공비 문제집", qty: "", cost: 200000 },
+  { act: "활동 4 · 만화책 나눔", item: "만화책", qty: "", cost: 200000 },
+  { act: "공통", item: "간식", qty: "", cost: null }
 ];
 
 /* ---------- 모바일 메뉴 ---------- */
@@ -215,12 +220,17 @@ const budget = $("budget-table");
 if (budget) {
   const won = n => n.toLocaleString("ko-KR") + "원";
   const pending = `<span class="pend">정리 중</span>`;
+  const isNum = b => typeof b.cost === "number";
+  const sub = act => {
+    const rows = BUDGET.filter(b => b.act === act);
+    return rows.length > 1 && rows.every(isNum) ? won(rows.reduce((t, b) => t + b.cost, 0)) : "";
+  };
   budget.tBodies[0].innerHTML = BUDGET.map((b, i) => {
     const head = i === 0 || BUDGET[i - 1].act !== b.act
-      ? `<tr class="grp"><th scope="colgroup" colspan="3">${esc(b.act)}</th></tr>` : "";
-    return `${head}<tr><td>${esc(b.item)}</td><td class="num">${b.qty === "" || b.qty == null ? "–" : esc(b.qty)}</td><td class="num">${typeof b.cost === "number" ? won(b.cost) : pending}</td></tr>`;
+      ? `<tr class="grp"><th scope="colgroup" colspan="2">${esc(b.act)}</th><td class="num">${sub(b.act)}</td></tr>` : "";
+    return `${head}<tr><td>${esc(b.item)}${b.shop ? `<small class="shop">${esc(b.shop)}</small>` : ""}</td><td class="num">${b.qty === "" || b.qty == null ? "–" : esc(b.qty)}</td><td class="num">${isNum(b) ? won(b.cost) : pending}</td></tr>`;
   }).join("");
-  const known = BUDGET.filter(b => typeof b.cost === "number");
+  const known = BUDGET.filter(isNum);
   const sum = known.reduce((s, b) => s + b.cost, 0);
   const total = !known.length ? pending
     : known.length < BUDGET.length ? `${won(sum)} <small>(정리된 항목만)</small>` : won(sum);

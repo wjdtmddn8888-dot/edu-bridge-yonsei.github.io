@@ -2,6 +2,7 @@
    자주 고치는 데이터는 이 파일 위쪽에 모여 있습니다.
    - ARCH : 활동 기록 (archive.html)
    - TEAM : 팀원 (team.html)
+   - BUDGET : 예산 (result.html)
    활동 날짜·진행 순서는 activity.html, index.html 에 직접 적혀 있습니다. */
 const $ = id => document.getElementById(id);
 
@@ -65,6 +66,25 @@ const TEAM = [
   { name: "정승우", major: "컴퓨터과학과" },
   { name: "정현석", major: "전기전자공학" },
   { name: "조현정", major: "언론홍보영상학" }
+];
+
+/* =========================================================
+   3. 예산  (result.html)
+   act  : 활동 이름 (같은 활동끼리 붙여 적으면 한 칸으로 묶입니다)
+   item : 품목
+   qty  : 수량 (모르면 "" → "–"로 표시)
+   cost : 금액, 숫자만 (예: 12000). 아직 모르면 null → "정리 중"
+   합계는 자동으로 계산됩니다.
+   ========================================================= */
+const BUDGET = [
+  { act: "활동 1 · 계산기 클리커", item: "기본 계산기", qty: "", cost: null },
+  { act: "활동 1 · 계산기 클리커", item: "캐릭터·알파벳 스티커", qty: "", cost: null },
+  { act: "활동 1 · 계산기 클리커", item: "입체 파츠", qty: "", cost: null },
+  { act: "활동 1 · 계산기 클리커", item: "포장재", qty: "", cost: null },
+  { act: "활동 2 · 크런치 말랑이", item: "크런치 말랑이 키트", qty: "", cost: null },
+  { act: "활동 2 · 크런치 말랑이", item: "개별 포장재", qty: "", cost: null },
+  { act: "활동 3 · 문제집 나눔", item: "우공비 문제집", qty: "", cost: null },
+  { act: "활동 4 · 만화책 나눔", item: "만화책", qty: "", cost: null }
 ];
 
 /* ---------- 모바일 메뉴 ---------- */
@@ -188,6 +208,23 @@ const teamGrid = $("team-grid");
 if (teamGrid) {
   const COL = ["#003876", "#1d4fbf", "#16805a", "#2f6bff", "#0b5d8f", "#3a3f9e", "#0f766e"];
   teamGrid.innerHTML = TEAM.map((m, i) => `<div class="mem rv"><span class="av" style="background:${COL[i % COL.length]}">${esc(m.name.slice(1))}</span><b>${esc(m.name)}</b><span class="major">${esc(m.major)}</span></div>`).join("");
+}
+
+/* ---------- 예산 (result.html) ---------- */
+const budget = $("budget-table");
+if (budget) {
+  const won = n => n.toLocaleString("ko-KR") + "원";
+  const pending = `<span class="pend">정리 중</span>`;
+  budget.tBodies[0].innerHTML = BUDGET.map((b, i) => {
+    const head = i === 0 || BUDGET[i - 1].act !== b.act
+      ? `<tr class="grp"><th scope="colgroup" colspan="3">${esc(b.act)}</th></tr>` : "";
+    return `${head}<tr><td>${esc(b.item)}</td><td class="num">${b.qty === "" || b.qty == null ? "–" : esc(b.qty)}</td><td class="num">${typeof b.cost === "number" ? won(b.cost) : pending}</td></tr>`;
+  }).join("");
+  const known = BUDGET.filter(b => typeof b.cost === "number");
+  const sum = known.reduce((s, b) => s + b.cost, 0);
+  const total = !known.length ? pending
+    : known.length < BUDGET.length ? `${won(sum)} <small>(정리된 항목만)</small>` : won(sum);
+  budget.tFoot.innerHTML = `<tr><th scope="row" colspan="2">합계</th><td class="num">${total}</td></tr>`;
 }
 
 /* ---------- 스크롤 등장 효과 ---------- */

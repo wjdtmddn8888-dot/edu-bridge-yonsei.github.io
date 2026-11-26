@@ -133,9 +133,14 @@ section{padding-block:112px}
 .tile p{color:var(--muted);font-size:15px}
 .t-why{grid-column:span 2;grid-row:span 2;background:linear-gradient(155deg,#002a5c 0%,#003876 45%,#1d4fbf 100%);border-color:transparent;color:#fff}
 .t-why .w,.t-why .k code{color:rgba(255,255,255,.7)}
-.t-why h3{font-size:clamp(32px,4vw,46px);font-weight:800}
+.t-why h3{font-size:clamp(28px,3vw,36px);font-weight:800}
 .t-why p{color:rgba(255,255,255,.82);font-size:17px;max-width:28em}
-.t-why .gap{display:grid;gap:10px;margin-top:22px}
+.t-why .chart{gap:14px;margin-top:22px}
+.t-why .chart .bar{height:14px}
+.t-why .chart .gaprow{font-size:14px;grid-template-columns:104px minmax(0,1fr) 68px}
+.t-why .chart .gaprow strong{font-size:16px}
+.t-why .chart .chart-k{font-size:13px !important;margin-top:12px}
+.t-why .chart .chart-k:first-child{margin-top:0}
 .gaprow{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.8)}
 .bar{height:8px;border-radius:9px;background:rgba(255,255,255,.14);position:relative;overflow:hidden}
 .bar i{position:absolute;inset:0 auto 0 0;border-radius:9px;background:rgba(255,255,255,.9)}

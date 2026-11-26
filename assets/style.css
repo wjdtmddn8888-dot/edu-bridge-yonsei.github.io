@@ -590,3 +590,13 @@ section{padding-block:88px}
 /* 이전/다음: 하나만 있을 때도 어색하지 않게, 위 내용과 간격을 줄임 */
 .pager{margin-top:56px}
 .pager a:hover b{color:var(--accent)}
+
+/* ===== v6: 워드마크 ===== */
+/* 로고 글자(EDU:BRIDGE)만 세리프 Fraunces로. 그라데이션과 배경 빛번짐을 없애 단정하게 */
+:root{--f-display:"Fraunces","Times New Roman",Georgia,serif}
+.brand{font-family:var(--f-display);font-weight:600;font-size:19px;letter-spacing:-.015em}
+.brand span{font-family:var(--f-sans)}
+.hero::before,.hero::after{display:none}
+.hero h1{font-family:var(--f-display);font-weight:600;letter-spacing:-.035em;line-height:.95;font-variation-settings:"opsz" 144}
+.hero h1 .grad{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--brand)}
+.hero h1 .colon{color:var(--accent)}

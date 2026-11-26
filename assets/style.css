@@ -732,3 +732,6 @@ section{padding-block:88px}
 /* 상단 메뉴 워드마크 이미지 */
 .brand .wm{display:flex;align-items:center}
 .brand img.wordmark{width:auto;height:19px;border-radius:0;background:none;transform:translateY(1px)}
+/* 홈 히어로 워드마크 */
+.hero h1.hero-wm{line-height:0;margin-top:32px}
+.hero-wm img{display:block;width:100%;max-width:560px;height:auto}

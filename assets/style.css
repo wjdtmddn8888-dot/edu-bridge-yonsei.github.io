@@ -668,7 +668,7 @@ section{padding-block:88px}
   .rec-card .rec-body{padding:16px 18px 18px}
 }
 
-/* ===== v8: 메뉴·푸터 로고 글꼴 (Plus Jakarta Sans 600) ===== */
+/* ===== v8: 메뉴·푸터 로고 글꼴 (Plus Jakarta Sans 700) ===== */
 /* 각 HTML에서 EDU:BRIDGE 글자만 불러옴 (text=EDU:BRIDGE) */
-.brand{font-family:"Plus Jakarta Sans",var(--f-sans);font-weight:600;letter-spacing:-.02em}
+.brand{font-family:"Plus Jakarta Sans",var(--f-sans);font-weight:700;letter-spacing:-.02em}
 .brand span{font-family:var(--f-sans)}

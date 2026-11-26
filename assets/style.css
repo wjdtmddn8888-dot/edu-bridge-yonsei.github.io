@@ -133,9 +133,14 @@ section{padding-block:112px}
 .tile p{color:var(--muted);font-size:15px}
 .t-why{grid-column:span 2;grid-row:span 2;background:linear-gradient(155deg,#002a5c 0%,#003876 45%,#1d4fbf 100%);border-color:transparent;color:#fff}
 .t-why .w,.t-why .k code{color:rgba(255,255,255,.7)}
-.t-why h3{font-size:clamp(32px,4vw,46px);font-weight:800}
+.t-why h3{font-size:clamp(28px,3vw,36px);font-weight:800}
 .t-why p{color:rgba(255,255,255,.82);font-size:17px;max-width:28em}
-.t-why .gap{display:grid;gap:10px;margin-top:22px}
+.t-why .chart{gap:14px;margin-top:22px}
+.t-why .chart .bar{height:14px}
+.t-why .chart .gaprow{font-size:14px;grid-template-columns:104px minmax(0,1fr) 68px}
+.t-why .chart .gaprow strong{font-size:16px}
+.t-why .chart .chart-k{font-size:13px !important;margin-top:12px}
+.t-why .chart .chart-k:first-child{margin-top:0}
 .gaprow{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.8)}
 .bar{height:8px;border-radius:9px;background:rgba(255,255,255,.14);position:relative;overflow:hidden}
 .bar i{position:absolute;inset:0 auto 0 0;border-radius:9px;background:rgba(255,255,255,.9)}
@@ -564,7 +569,7 @@ section{padding-block:88px}
 .pager a:hover b{color:var(--accent)}
 
 /* ===== v6: 워드마크·라벨 ===== */
-/* EDU:BRIDGE는 기존 글꼴 그대로, 그라데이션 대신 단색. 배경 빛번짐·격자 제거 */
+/* Edu:Bridge는 기존 글꼴 그대로, 그라데이션 대신 단색. 배경 빛번짐·격자 제거 */
 .hero::before,.hero::after{display:none}
 .hero h1 .grad{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--brand)}
 /* 영문 라벨(ABOUT, WHY 등)과 숫자 라벨: 코딩용 글꼴 대신 본문 글꼴 */
@@ -677,7 +682,7 @@ section{padding-block:88px}
 }
 
 /* ===== v8: 메뉴·푸터 로고 글꼴 (Plus Jakarta Sans 700) ===== */
-/* 각 HTML에서 EDU:BRIDGE 글자만 불러옴 (text=EDU:BRIDGE) */
+/* 각 HTML에서 Edu:Bridge 글자만 불러옴 (text=Edu:Bridge) */
 .brand{font-family:"Plus Jakarta Sans",var(--f-sans);font-weight:700;letter-spacing:-.02em}
 .brand span{font-family:var(--f-sans)}
 
@@ -717,14 +722,14 @@ section{padding-block:88px}
 @media (max-width:860px){.story-split{grid-template-columns:1fr}.story-ph{min-height:0;aspect-ratio:4/3}}
 /* 나눔 카드: 책 표지 */
 .book-cover{margin:0;border-radius:14px;background:var(--bg-2);border:1px solid var(--line);display:flex;justify-content:center;align-items:center;padding:20px;height:260px;overflow:hidden}
-.book-cover img{height:100%;width:auto;max-width:100%;object-fit:contain;border-radius:4px;filter:drop-shadow(0 6px 14px rgba(15,23,42,.14))}
+.book-cover img{height:100%;width:auto;max-width:100%;object-fit:contain;border-radius:4px;outline:1px solid rgba(15,23,42,.08);outline-offset:-1px;filter:drop-shadow(0 6px 14px rgba(15,23,42,.14))}
 @media (max-width:520px){.book-cover{height:220px;padding:16px}}
 /* 소개 나눔: 제목 옆 책 표지 */
 .share-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-bottom:40px}
 .share-head .head{margin-bottom:0}
 .share-books{display:flex;gap:16px;align-items:flex-end}
 .share-books figure{margin:0;display:grid;gap:8px;justify-items:center}
-.share-books img{height:170px;width:auto;border-radius:4px;filter:drop-shadow(0 8px 16px rgba(15,23,42,.16))}
+.share-books img{height:170px;width:auto;border-radius:4px;outline:1px solid rgba(15,23,42,.08);outline-offset:-1px;filter:drop-shadow(0 8px 16px rgba(15,23,42,.16))}
 .share-books figure:first-child{transform:rotate(-4deg)}
 .share-books figure:last-child{transform:rotate(3deg)}
 .share-books figcaption{font-size:12px;font-weight:600;color:var(--muted)}
@@ -735,3 +740,35 @@ section{padding-block:88px}
 /* 홈 히어로 워드마크 */
 .hero h1.hero-wm{line-height:0;margin-top:32px}
 .hero-wm img{display:block;width:100%;max-width:560px;height:auto}
+
+/* 결과: 예산 표 */
+.target .badge{justify-self:start;margin-top:4px}
+.budget-box{border:1px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden}
+.budget{width:100%;border-collapse:collapse;font-size:15px}
+.budget th,.budget td{padding:13px 20px;text-align:left;border-top:1px solid var(--line)}
+.budget thead th{border-top:0;font-size:13px;font-weight:600;color:var(--muted);background:var(--bg-2)}
+.budget tbody td{color:var(--ink-2)}
+.budget .grp th{padding-top:18px;padding-bottom:6px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:-.01em}
+.budget .grp+tr td{border-top:0}
+.budget .grp td{padding-top:18px;padding-bottom:6px;font-size:13px;font-weight:700;color:var(--ink)}
+.chk .badge{margin-left:6px;vertical-align:1px}
+.budget .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+.budget tfoot th,.budget tfoot td{font-weight:800;font-size:16px;background:var(--bg-2)}
+.budget tfoot small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.budget .pend{font-size:13px;color:var(--muted);font-weight:500}
+@media (max-width:560px){.budget{font-size:14px}.budget th,.budget td{padding:12px 8px}.budget th:first-child,.budget td:first-child{padding-left:14px}.budget th:last-child,.budget td:last-child{padding-right:14px}.budget .grp th,.budget .grp td{padding-top:16px}.budget tfoot th,.budget tfoot td{font-size:15px}}
+.budget .grp .badge{margin-left:8px;vertical-align:1px;padding:2px 8px;font-size:11px}
+.budget .note{color:var(--muted);font-size:13px}
+
+/* 소개 육하원칙 카드: 카드 전체를 누르면 해당 페이지로 이동 */
+.tile .k-r{display:inline-flex;align-items:center;gap:8px}
+.tile .go{width:18px;height:18px;color:var(--muted);transition:transform .2s,color .2s}
+.t-why .go{color:rgba(255,255,255,.7)}
+.tile-go{color:inherit;text-decoration:none}
+.tile-go::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.tile-go:focus-visible{outline:none}
+.tile-go:focus-visible::after{outline:2px solid var(--accent);outline-offset:-2px}
+.tile p a,.tile .note a{position:relative;z-index:1}
+.tile:not(.t-why):has(.tile-go):hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+.tile:has(.tile-go):hover .go{transform:translateX(3px);color:var(--accent)}
+.t-why:has(.tile-go):hover .go{color:#fff}

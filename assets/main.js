@@ -1,7 +1,8 @@
-/* EDU:BRIDGE — 모든 페이지 공용 스크립트
+/* Edu:Bridge — 모든 페이지 공용 스크립트
    자주 고치는 데이터는 이 파일 위쪽에 모여 있습니다.
    - ARCH : 활동 기록 (archive.html)
    - TEAM : 팀원 (team.html)
+   - BUDGET : 예산 (result.html)
    활동 날짜·진행 순서는 activity.html, index.html 에 직접 적혀 있습니다. */
 const $ = id => document.getElementById(id);
 
@@ -11,6 +12,9 @@ const $ = id => document.getElementById(id);
    id    : 주소에 붙는 이름 (archive.html#r-id 로 바로 열 수 있음). 영문·숫자로, 겹치지 않게
    group : "prep" 준비 과정 / "act" 만들기 / "share" 나눔
    st    : "ok" 완료 / "next" 진행 예정 / "todo" 예정
+           활동(act·share)은 st 를 적지 않으면 date 를 보고 저절로 정해집니다.
+           지난 날짜 → 완료, 당일 → 오늘, 가장 가까운 다음 활동 → 진행 예정, 나머지 → 예정
+           날짜가 미뤄지면 date 만 고치면 됩니다.
    d     : 카드와 자세히 보기에 나오는 설명
    more  : 자세히 보기에만 나오는 문단들 (선택) 예) more: ["첫 문단", "둘째 문단"]
    place : 장소 (선택)   facts : 그 밖의 정보 (선택) 예) facts: [["시간", "90분"]]
@@ -25,8 +29,8 @@ const ARCH = [
     place: "마포구 학교 밖 청소년 도움센터 친구랑",
     d: "친구랑과 사전 미팅을 했습니다. 활동으로는 이어지지 않았습니다.",
     imgs: ["img/chingurang-1.jpg", "img/chingurang-2.jpg", "img/chingurang-3.jpg", "img/chingurang-4.jpg"] },
-  { id: "team-1008", group: "prep", tag: "준비", t: "조 회의", st: "ok", date: "2026.10.08",
-    d: "친구랑과의 사전 미팅을 마친 뒤 조원끼리 따로 모여 회의를 했습니다.",
+  { id: "team-1008", group: "prep", tag: "준비", t: "팀 회의", st: "ok", date: "2026.10.08",
+    d: "친구랑과의 사전 미팅을 마친 뒤 팀원끼리 따로 모여 회의를 했습니다.",
     imgs: ["img/team-meeting-1008.jpg", "img/team-meeting-1008-2.jpg"] },
   { id: "seodaemun", group: "prep", tag: "준비", t: "서대문교육복지센터 사전 미팅", st: "ok", date: "2026.11.05",
     place: "서대문교육복지센터",
@@ -35,17 +39,17 @@ const ARCH = [
   { id: "plan", group: "prep", tag: "준비", t: "활동 기획안 작성", st: "ok", date: "2026.11",
     d: "계산기 클리커 만들기와 크런치 말랑이 만들기의 진행 순서, 준비물, 멘토 역할을 정리했습니다.",
     link: ["activity.html", "활동 계획 보기"] },
-  { id: "act1", group: "act", tag: "활동 1", t: "나만의 계산기 클리커 만들기", st: "next", date: "2026.11.27",
+  { id: "act1", group: "act", tag: "활동 1", t: "나만의 계산기 클리커 만들기", date: "2026.11.27",
     place: "서울특별시립 아동푸른센터", facts: [["시간", "90분"], ["참여", "11명"]],
     d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.",
     link: ["activity.html#act1", "활동 1 계획 보기"] },
-  { id: "act2", group: "act", tag: "활동 2", t: "크런치 말랑이 만들기", st: "todo", date: "2026.12.07",
+  { id: "act2", group: "act", tag: "활동 2", t: "크런치 말랑이 만들기", date: "2026.12.07",
     place: "서울특별시립 아동푸른센터", facts: [["시간", "90분"]],
     d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.",
     link: ["activity.html#act2", "활동 2 계획 보기"] },
-  { id: "act3", group: "share", tag: "활동 3", t: "우공비 문제집 나눔", st: "todo", date: "2026.12.04",
-    place: "망원무지개지역아동센터", facts: [["나누는 것", "우공비 문제집"], ["고른 기준", "센터가 요청한 학년·과목"]],
-    d: "센터에 필요한 학년과 과목을 물어보고 그에 맞춰 고른 문제집을 전달합니다. 다녀온 뒤 전달 사진과 아이들과 나눈 이야기를 기록합니다.",
+  { id: "act3", group: "share", tag: "활동 3", t: "우공비 문제집 나눔", date: "2026.12.04",
+    place: "망원무지개지역아동센터", facts: [["나누는 것", "우공비 문제집"], ["고른 기준", "센터가 요청한 물품"]],
+    d: "센터에 필요한 물품을 물어보고 그에 맞춰 고른 문제집을 전달합니다. 다녀온 뒤 전달 사진과 아이들과 나눈 이야기를 기록합니다.",
     link: ["activity.html#act3", "활동 3 계획 보기"] }
 ];
 const ARCH_GROUPS = [
@@ -67,6 +71,29 @@ const TEAM = [
   { name: "조현정", major: "언론홍보영상학" }
 ];
 
+/* =========================================================
+   3. 예산  (result.html)
+   act  : 활동 이름 (같은 활동끼리 붙여 적으면 한 묶음이 되고, 묶음별 소계가 붙습니다)
+   item : 품목
+   note : 품목 옆 괄호 설명 (선택) 예) "11개 × 5,000원"
+   cost : 금액, 숫자만 (예: 12000). 아직 모르면 null → "정리 중"
+   est  : 아직 확정되지 않은 예상 금액이면 true → 묶음에 "예상" 표시
+          (확정되면 est 를 지우세요. 묶음 전체가 확정되면 "확정"으로 바뀝니다)
+   ========================================================= */
+const BUDGET = [
+  { act: "활동 1 · 계산기 클리커", item: "계산기", note: "11개 × 5,000원", cost: 55000 },
+  { act: "활동 1 · 계산기 클리커", item: "스티커", note: "캐릭터·알파벳·입체·보석 스티커", cost: 22930 },
+  { act: "활동 1 · 계산기 클리커", item: "양면테이프", note: "장식 고정용", cost: 1000 },
+  { act: "활동 2 · 크런치 말랑이", item: "크런치 말랑이 키트", note: "17세트 × 6,000원, 예비 2세트 포함", cost: 102000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "작업용 매트", note: "4개 × 1,500원", cost: 6000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "포장 봉투", note: "17개 × 500원", cost: 8500, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "위생·정리 용품", note: "물티슈, 휴지, 쓰레기봉투 등", cost: 10000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "예비 소모품", note: "장갑, 여분 재료", cost: 9000, est: true },
+  { act: "나눔 · 활동 3", item: "우공비 문제집", note: "망원무지개지역아동센터", cost: 200000, est: true },
+  { act: "나눔 · 활동 4", item: "만화책", cost: 200000, est: true },
+  { act: "공통", item: "간식", cost: null }
+];
+
 /* ---------- 모바일 메뉴 ---------- */
 const menuBtn = $("menu-btn"), mnav = $("mnav");
 if (menuBtn && mnav) {
@@ -76,8 +103,35 @@ if (menuBtn && mnav) {
   });
 }
 
-const ST = { next: ["next", "진행 예정"], todo: ["todo", "예정"], ok: ["ok", "완료"] };
+const ST = { next: ["next", "진행 예정"], today: ["next", "오늘"], todo: ["todo", "예정"], ok: ["ok", "완료"] };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* ---------- 날짜에 따라 활동 상태 바꾸기 ----------
+   오늘(한국 시간)과 활동 날짜를 비교해 배지를 저절로 바꿉니다.
+   HTML에서 쓰는 법
+   - <span class="badge" data-date="2026-11-27">진행 예정</span>
+       → 글자와 색이 "완료 / 오늘 / 진행 예정 / 예정"으로 바뀜
+   - <span class="badge" data-date="2026-11-27" data-keep>만들기 · 활동 1</span>
+       → 글자는 그대로 두고 색만 바뀜 (지나면 뒤에 " · 완료"가 붙음)
+   - <span data-until="2026-11-27"> 예정</span>
+       → 그 날짜가 지나면 숨김
+   미리 보기: 주소 끝에 ?today=2026-11-28 처럼 붙이면 그날 기준으로 보입니다. */
+const TODAY = (() => {
+  const q = new URLSearchParams(location.search).get("today");
+  return /^\d{4}-\d{2}-\d{2}$/.test(q || "") ? q : new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10);
+})();
+const isoDate = s => /^\d{4}\.\d{2}\.\d{2}$/.test(s) ? s.replace(/\./g, "-") : null;
+const ACT_DATES = ARCH.filter(a => a.group !== "prep").map(a => isoDate(a.date)).filter(Boolean);
+const NEXT_DATE = ACT_DATES.filter(d => d >= TODAY).sort()[0];
+const stOf = d => d < TODAY ? "ok" : d === TODAY ? "today" : d === NEXT_DATE ? "next" : "todo";
+ARCH.forEach(a => { if (!a.st) a.st = isoDate(a.date) ? stOf(isoDate(a.date)) : "todo"; });
+document.querySelectorAll(".badge[data-date]").forEach(el => {
+  const st = stOf(el.dataset.date), [c, l] = ST[st];
+  el.classList.remove("next", "todo", "ok"); el.classList.add(c);
+  if (!el.hasAttribute("data-keep")) el.textContent = l;
+  else if (st === "ok") el.textContent += " · 완료";
+});
+document.querySelectorAll("[data-until]").forEach(el => { if (el.dataset.until < TODAY) el.hidden = true; });
 
 /* ---------- 팀 인원 ---------- */
 document.querySelectorAll("[data-team-count]").forEach(el => { el.textContent = TEAM.length; });
@@ -188,6 +242,28 @@ const teamGrid = $("team-grid");
 if (teamGrid) {
   const COL = ["#003876", "#1d4fbf", "#16805a", "#2f6bff", "#0b5d8f", "#3a3f9e", "#0f766e"];
   teamGrid.innerHTML = TEAM.map((m, i) => `<div class="mem rv"><span class="av" style="background:${COL[i % COL.length]}">${esc(m.name.slice(1))}</span><b>${esc(m.name)}</b><span class="major">${esc(m.major)}</span></div>`).join("");
+}
+
+/* ---------- 예산 (result.html) ---------- */
+const budget = $("budget-table");
+if (budget) {
+  const won = n => n.toLocaleString("ko-KR") + "원";
+  const isNum = b => typeof b.cost === "number";
+  const pending = `<span class="pend">정리 중</span>`;
+  const sum = rows => rows.reduce((t, b) => t + b.cost, 0);
+  budget.tBodies[0].innerHTML = BUDGET.map((b, i) => {
+    let head = "";
+    if (i === 0 || BUDGET[i - 1].act !== b.act) {
+      const rows = BUDGET.filter(x => x.act === b.act);
+      const badge = !rows.some(isNum) ? "" : rows.some(x => x.est) ? `<span class="badge todo">예상</span>` : `<span class="badge ok">확정</span>`;
+      head = `<tr class="grp"><th scope="colgroup">${esc(b.act)}${badge}</th><td class="num">${rows.length > 1 && rows.every(isNum) ? won(sum(rows)) : ""}</td></tr>`;
+    }
+    return `${head}<tr><td>${esc(b.item)}${b.note ? ` <span class="note">(${esc(b.note)})</span>` : ""}</td><td class="num">${isNum(b) ? won(b.cost) : pending}</td></tr>`;
+  }).join("");
+  const known = BUDGET.filter(isNum), missing = BUDGET.filter(b => !isNum(b));
+  const notes = (known.some(b => b.est) ? ["예상 금액 포함"] : []).concat(missing.length ? [missing.map(b => b.item).join(", ") + " 제외"] : []);
+  const total = !known.length ? pending : won(sum(known)) + (notes.length ? `<small>(${esc(notes.join(", "))})</small>` : "");
+  budget.tFoot.innerHTML = `<tr><th scope="row">합계</th><td class="num">${total}</td></tr>`;
 }
 
 /* ---------- 스크롤 등장 효과 ---------- */

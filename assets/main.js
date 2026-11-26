@@ -12,6 +12,9 @@ const $ = id => document.getElementById(id);
    id    : 주소에 붙는 이름 (archive.html#r-id 로 바로 열 수 있음). 영문·숫자로, 겹치지 않게
    group : "prep" 준비 과정 / "act" 만들기 / "share" 나눔
    st    : "ok" 완료 / "next" 진행 예정 / "todo" 예정
+           활동(act·share)은 st 를 적지 않으면 date 를 보고 저절로 정해집니다.
+           지난 날짜 → 완료, 당일 → 오늘, 가장 가까운 다음 활동 → 진행 예정, 나머지 → 예정
+           날짜가 미뤄지면 date 만 고치면 됩니다.
    d     : 카드와 자세히 보기에 나오는 설명
    more  : 자세히 보기에만 나오는 문단들 (선택) 예) more: ["첫 문단", "둘째 문단"]
    place : 장소 (선택)   facts : 그 밖의 정보 (선택) 예) facts: [["시간", "90분"]]
@@ -26,8 +29,8 @@ const ARCH = [
     place: "마포구 학교 밖 청소년 도움센터 친구랑",
     d: "친구랑과 사전 미팅을 했습니다. 활동으로는 이어지지 않았습니다.",
     imgs: ["img/chingurang-1.jpg", "img/chingurang-2.jpg", "img/chingurang-3.jpg", "img/chingurang-4.jpg"] },
-  { id: "team-1008", group: "prep", tag: "준비", t: "조 회의", st: "ok", date: "2026.10.08",
-    d: "친구랑과의 사전 미팅을 마친 뒤 조원끼리 따로 모여 회의를 했습니다.",
+  { id: "team-1008", group: "prep", tag: "준비", t: "팀 회의", st: "ok", date: "2026.10.08",
+    d: "친구랑과의 사전 미팅을 마친 뒤 팀원끼리 따로 모여 회의를 했습니다.",
     imgs: ["img/team-meeting-1008.jpg", "img/team-meeting-1008-2.jpg"] },
   { id: "seodaemun", group: "prep", tag: "준비", t: "서대문교육복지센터 사전 미팅", st: "ok", date: "2026.11.05",
     place: "서대문교육복지센터",
@@ -36,15 +39,15 @@ const ARCH = [
   { id: "plan", group: "prep", tag: "준비", t: "활동 기획안 작성", st: "ok", date: "2026.11",
     d: "계산기 클리커 만들기와 크런치 말랑이 만들기의 진행 순서, 준비물, 멘토 역할을 정리했습니다.",
     link: ["activity.html", "활동 계획 보기"] },
-  { id: "act1", group: "act", tag: "활동 1", t: "나만의 계산기 클리커 만들기", st: "next", date: "2026.11.27",
+  { id: "act1", group: "act", tag: "활동 1", t: "나만의 계산기 클리커 만들기", date: "2026.11.27",
     place: "서울특별시립 아동푸른센터", facts: [["시간", "90분"], ["참여", "11명"]],
     d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.",
     link: ["activity.html#act1", "활동 1 계획 보기"] },
-  { id: "act2", group: "act", tag: "활동 2", t: "크런치 말랑이 만들기", st: "todo", date: "2026.12.07",
+  { id: "act2", group: "act", tag: "활동 2", t: "크런치 말랑이 만들기", date: "2026.12.07",
     place: "서울특별시립 아동푸른센터", facts: [["시간", "90분"]],
     d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.",
     link: ["activity.html#act2", "활동 2 계획 보기"] },
-  { id: "act3", group: "share", tag: "활동 3", t: "우공비 문제집 나눔", st: "todo", date: "2026.12.04",
+  { id: "act3", group: "share", tag: "활동 3", t: "우공비 문제집 나눔", date: "2026.12.04",
     place: "망원무지개지역아동센터", facts: [["나누는 것", "우공비 문제집"], ["고른 기준", "센터가 요청한 물품"]],
     d: "센터에 필요한 물품을 물어보고 그에 맞춰 고른 문제집을 전달합니다. 다녀온 뒤 전달 사진과 아이들과 나눈 이야기를 기록합니다.",
     link: ["activity.html#act3", "활동 3 계획 보기"] }
@@ -100,8 +103,35 @@ if (menuBtn && mnav) {
   });
 }
 
-const ST = { next: ["next", "진행 예정"], todo: ["todo", "예정"], ok: ["ok", "완료"] };
+const ST = { next: ["next", "진행 예정"], today: ["next", "오늘"], todo: ["todo", "예정"], ok: ["ok", "완료"] };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* ---------- 날짜에 따라 활동 상태 바꾸기 ----------
+   오늘(한국 시간)과 활동 날짜를 비교해 배지를 저절로 바꿉니다.
+   HTML에서 쓰는 법
+   - <span class="badge" data-date="2026-11-27">진행 예정</span>
+       → 글자와 색이 "완료 / 오늘 / 진행 예정 / 예정"으로 바뀜
+   - <span class="badge" data-date="2026-11-27" data-keep>만들기 · 활동 1</span>
+       → 글자는 그대로 두고 색만 바뀜 (지나면 뒤에 " · 완료"가 붙음)
+   - <span data-until="2026-11-27"> 예정</span>
+       → 그 날짜가 지나면 숨김
+   미리 보기: 주소 끝에 ?today=2026-11-28 처럼 붙이면 그날 기준으로 보입니다. */
+const TODAY = (() => {
+  const q = new URLSearchParams(location.search).get("today");
+  return /^\d{4}-\d{2}-\d{2}$/.test(q || "") ? q : new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10);
+})();
+const isoDate = s => /^\d{4}\.\d{2}\.\d{2}$/.test(s) ? s.replace(/\./g, "-") : null;
+const ACT_DATES = ARCH.filter(a => a.group !== "prep").map(a => isoDate(a.date)).filter(Boolean);
+const NEXT_DATE = ACT_DATES.filter(d => d >= TODAY).sort()[0];
+const stOf = d => d < TODAY ? "ok" : d === TODAY ? "today" : d === NEXT_DATE ? "next" : "todo";
+ARCH.forEach(a => { if (!a.st) a.st = isoDate(a.date) ? stOf(isoDate(a.date)) : "todo"; });
+document.querySelectorAll(".badge[data-date]").forEach(el => {
+  const st = stOf(el.dataset.date), [c, l] = ST[st];
+  el.classList.remove("next", "todo", "ok"); el.classList.add(c);
+  if (!el.hasAttribute("data-keep")) el.textContent = l;
+  else if (st === "ok") el.textContent += " · 완료";
+});
+document.querySelectorAll("[data-until]").forEach(el => { if (el.dataset.until < TODAY) el.hidden = true; });
 
 /* ---------- 팀 인원 ---------- */
 document.querySelectorAll("[data-team-count]").forEach(el => { el.textContent = TEAM.length; });

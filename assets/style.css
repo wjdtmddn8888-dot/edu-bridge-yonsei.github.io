@@ -731,4 +731,4 @@ section{padding-block:88px}
 @media (max-width:760px){.share-head{grid-template-columns:1fr;gap:20px}.share-books{justify-content:center}.share-books img{height:140px}}
 /* 상단 메뉴 워드마크 이미지 */
 .brand .wm{display:flex;align-items:center}
-.brand img.wordmark{width:auto;height:19px;border-radius:0;background:none}
+.brand img.wordmark{width:auto;height:19px;border-radius:0;background:none;transform:translateY(1px)}

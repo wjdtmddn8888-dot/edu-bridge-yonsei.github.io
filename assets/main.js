@@ -50,7 +50,7 @@ const ARCH = [
 ];
 const ARCH_GROUPS = [
   { key: "prep", title: "준비 과정", desc: "함께할 기관을 찾고 활동을 기획하기까지" },
-  { key: "act", title: "만들기", desc: "아동푸른센터 아이들과 두 번 만나, 함께 만들고 이야기 나눕니다" },
+  { key: "act", title: "만들기", desc: "아동푸른센터 아이들과 함께 만들고 이야기 나눕니다" },
   { key: "share", title: "나눔", desc: "지역아동센터를 찾아가 센터가 요청한 책을 전하고, 아이들과 이야기를 나눕니다" }
 ];
 

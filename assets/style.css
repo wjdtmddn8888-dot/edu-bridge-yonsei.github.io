@@ -591,12 +591,12 @@ section{padding-block:88px}
 .pager{margin-top:56px}
 .pager a:hover b{color:var(--accent)}
 
-/* ===== v6: 워드마크 ===== */
-/* 로고 글자(EDU:BRIDGE)만 세리프 Fraunces로. 그라데이션과 배경 빛번짐을 없애 단정하게 */
-:root{--f-display:"Fraunces","Times New Roman",Georgia,serif}
-.brand{font-family:var(--f-display);font-weight:600;font-size:19px;letter-spacing:-.015em}
-.brand span{font-family:var(--f-sans)}
+/* ===== v6: 워드마크·라벨 ===== */
+/* EDU:BRIDGE는 기존 글꼴 그대로, 그라데이션 대신 단색. 배경 빛번짐·격자 제거 */
 .hero::before,.hero::after{display:none}
-.hero h1{font-family:var(--f-display);font-weight:600;letter-spacing:-.035em;line-height:.95;font-variation-settings:"opsz" 144}
 .hero h1 .grad{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--brand)}
-.hero h1 .colon{color:var(--accent)}
+/* 영문 라벨(ABOUT, WHY 등)과 숫자 라벨: 코딩용 글꼴 대신 본문 글꼴 */
+:root{--f-mono:var(--f-sans)}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.06em}
+.tile .w{letter-spacing:.06em}
+.tile .k code,.story .num,.dtile small,.tl code,.box h4,.mem small,.trow span{letter-spacing:.02em;font-variant-numeric:tabular-nums}

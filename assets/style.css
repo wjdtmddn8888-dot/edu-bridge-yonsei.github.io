@@ -561,8 +561,8 @@ section{padding-block:88px}
 .hero h1 .grad{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--brand)}
 /* 영문 라벨(ABOUT, WHY 등)과 숫자 라벨: 코딩용 글꼴 대신 본문 글꼴 */
 :root{--f-mono:var(--f-sans)}
-.eyebrow{font-size:13px;font-weight:600;letter-spacing:.06em}
-.tile .w{letter-spacing:.06em}
+.eyebrow,.tile .w{font-size:14px;font-weight:600;letter-spacing:-.01em;text-transform:none}
+.dtile small{font-size:12px;font-weight:600;letter-spacing:0}
 .tile .k code,.story .num,.dtile small,.tl code,.box h4,.mem small,.trow span{letter-spacing:.02em;font-variant-numeric:tabular-nums}
 
 /* ===== v7: 아카이브 카드 + 자세히 보기 창 + 사진 크게 보기 ===== */

@@ -2,6 +2,7 @@
    자주 고치는 데이터는 이 파일 위쪽에 모여 있습니다.
    - ARCH : 활동 기록 (archive.html)
    - TEAM : 팀원 (team.html)
+   - BUDGET : 예산 (result.html)
    활동 날짜·진행 순서는 activity.html, index.html 에 직접 적혀 있습니다. */
 const $ = id => document.getElementById(id);
 
@@ -65,6 +66,29 @@ const TEAM = [
   { name: "정승우", major: "컴퓨터과학과" },
   { name: "정현석", major: "전기전자공학" },
   { name: "조현정", major: "언론홍보영상학" }
+];
+
+/* =========================================================
+   3. 예산  (result.html)
+   act  : 활동 이름 (같은 활동끼리 붙여 적으면 한 묶음이 되고, 묶음별 소계가 붙습니다)
+   item : 품목
+   note : 품목 옆 괄호 설명 (선택) 예) "11개 × 5,000원"
+   cost : 금액, 숫자만 (예: 12000). 아직 모르면 null → "정리 중"
+   est  : 아직 확정되지 않은 예상 금액이면 true → 묶음에 "예상" 표시
+          (확정되면 est 를 지우세요. 묶음 전체가 확정되면 "확정"으로 바뀝니다)
+   ========================================================= */
+const BUDGET = [
+  { act: "활동 1 · 계산기 클리커", item: "계산기", note: "11개 × 5,000원", cost: 55000 },
+  { act: "활동 1 · 계산기 클리커", item: "스티커", note: "캐릭터·알파벳·입체·보석 스티커", cost: 22930 },
+  { act: "활동 1 · 계산기 클리커", item: "양면테이프", note: "장식 고정용", cost: 1000 },
+  { act: "활동 2 · 크런치 말랑이", item: "크런치 말랑이 키트", note: "17세트 × 6,000원, 예비 2세트 포함", cost: 102000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "작업용 매트", note: "4개 × 1,500원", cost: 6000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "포장 봉투", note: "17개 × 500원", cost: 8500, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "위생·정리 용품", note: "물티슈, 휴지, 쓰레기봉투 등", cost: 10000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "예비 소모품", note: "장갑, 여분 재료", cost: 9000, est: true },
+  { act: "나눔 · 활동 3", item: "우공비 문제집", note: "망원무지개지역아동센터", cost: 200000, est: true },
+  { act: "나눔 · 활동 4", item: "만화책", cost: 200000, est: true },
+  { act: "공통", item: "간식", cost: null }
 ];
 
 /* ---------- 모바일 메뉴 ---------- */
@@ -188,6 +212,28 @@ const teamGrid = $("team-grid");
 if (teamGrid) {
   const COL = ["#003876", "#1d4fbf", "#16805a", "#2f6bff", "#0b5d8f", "#3a3f9e", "#0f766e"];
   teamGrid.innerHTML = TEAM.map((m, i) => `<div class="mem rv"><span class="av" style="background:${COL[i % COL.length]}">${esc(m.name.slice(1))}</span><b>${esc(m.name)}</b><span class="major">${esc(m.major)}</span></div>`).join("");
+}
+
+/* ---------- 예산 (result.html) ---------- */
+const budget = $("budget-table");
+if (budget) {
+  const won = n => n.toLocaleString("ko-KR") + "원";
+  const isNum = b => typeof b.cost === "number";
+  const pending = `<span class="pend">정리 중</span>`;
+  const sum = rows => rows.reduce((t, b) => t + b.cost, 0);
+  budget.tBodies[0].innerHTML = BUDGET.map((b, i) => {
+    let head = "";
+    if (i === 0 || BUDGET[i - 1].act !== b.act) {
+      const rows = BUDGET.filter(x => x.act === b.act);
+      const badge = !rows.some(isNum) ? "" : rows.some(x => x.est) ? `<span class="badge todo">예상</span>` : `<span class="badge ok">확정</span>`;
+      head = `<tr class="grp"><th scope="colgroup">${esc(b.act)}${badge}</th><td class="num">${rows.length > 1 && rows.every(isNum) ? won(sum(rows)) : ""}</td></tr>`;
+    }
+    return `${head}<tr><td>${esc(b.item)}${b.note ? ` <span class="note">(${esc(b.note)})</span>` : ""}</td><td class="num">${isNum(b) ? won(b.cost) : pending}</td></tr>`;
+  }).join("");
+  const known = BUDGET.filter(isNum), missing = BUDGET.filter(b => !isNum(b));
+  const notes = (known.some(b => b.est) ? ["예상 금액 포함"] : []).concat(missing.length ? [missing.map(b => b.item).join(", ") + " 제외"] : []);
+  const total = !known.length ? pending : won(sum(known)) + (notes.length ? `<small>(${esc(notes.join(", "))})</small>` : "");
+  budget.tFoot.innerHTML = `<tr><th scope="row">합계</th><td class="num">${total}</td></tr>`;
 }
 
 /* ---------- 스크롤 등장 효과 ---------- */

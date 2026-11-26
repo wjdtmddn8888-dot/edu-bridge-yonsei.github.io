@@ -759,3 +759,16 @@ section{padding-block:88px}
 @media (max-width:560px){.budget{font-size:14px}.budget th,.budget td{padding:12px 8px}.budget th:first-child,.budget td:first-child{padding-left:14px}.budget th:last-child,.budget td:last-child{padding-right:14px}.budget .grp th,.budget .grp td{padding-top:16px}.budget tfoot th,.budget tfoot td{font-size:15px}}
 .budget .grp .badge{margin-left:8px;vertical-align:1px;padding:2px 8px;font-size:11px}
 .budget .note{color:var(--muted);font-size:13px}
+
+/* 소개 육하원칙 카드: 카드 전체를 누르면 해당 페이지로 이동 */
+.tile .k-r{display:inline-flex;align-items:center;gap:8px}
+.tile .go{width:18px;height:18px;color:var(--muted);transition:transform .2s,color .2s}
+.t-why .go{color:rgba(255,255,255,.7)}
+.tile-go{color:inherit;text-decoration:none}
+.tile-go::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.tile-go:focus-visible{outline:none}
+.tile-go:focus-visible::after{outline:2px solid var(--accent);outline-offset:-2px}
+.tile p a,.tile .note a{position:relative;z-index:1}
+.tile:not(.t-why):has(.tile-go):hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+.tile:has(.tile-go):hover .go{transform:translateX(3px);color:var(--accent)}
+.t-why:has(.tile-go):hover .go{color:#fff}

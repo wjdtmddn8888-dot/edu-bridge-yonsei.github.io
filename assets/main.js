@@ -56,7 +56,8 @@ const ARCH_GROUPS = [
 ];
 
 /* =========================================================
-   2. 팀원  (team.html)
+   2. 팀원  (team.html, result.html 소감)
+   say : 결과 페이지에 나올 소감 (선택) 예) say: "아이들이 ..."
    ========================================================= */
 const TEAM = [
   { name: "김태연", major: "정치외교학과" },
@@ -72,23 +73,22 @@ const TEAM = [
    3. 예산  (result.html)
    act  : 활동 이름 (같은 활동끼리 붙여 적으면 한 묶음이 되고, 묶음별 소계가 붙습니다)
    item : 품목
-   note : 품목 아래 작은 글씨 (선택) 예) "11개 × 5,000원"
+   note : 품목 옆 괄호 설명 (선택) 예) "11개 × 5,000원"
    cost : 금액, 숫자만 (예: 12000). 아직 모르면 null → "정리 중"
-   합계는 자동으로 계산됩니다.
+   est  : 아직 확정되지 않은 예상 금액이면 true → 묶음에 "예상" 표시
+          (확정되면 est 를 지우세요. 묶음 전체가 확정되면 "확정"으로 바뀝니다)
    ========================================================= */
 const BUDGET = [
   { act: "활동 1 · 계산기 클리커", item: "계산기", note: "11개 × 5,000원", cost: 55000 },
   { act: "활동 1 · 계산기 클리커", item: "스티커", note: "캐릭터·알파벳·입체·보석 스티커", cost: 22930 },
   { act: "활동 1 · 계산기 클리커", item: "양면테이프", note: "장식 고정용", cost: 1000 },
-  { act: "활동 1 · 계산기 클리커", item: "포장 봉투", note: "12장, 완성품 개별 포장", cost: 3000 },
-  { act: "활동 1 · 계산기 클리커", item: "위생·정리 용품", note: "물티슈, 휴지", cost: 3000 },
-  { act: "활동 2 · 크런치 말랑이", item: "크런치 말랑이 키트", note: "17세트 × 6,000원 (예비 2세트 포함)", cost: 102000 },
-  { act: "활동 2 · 크런치 말랑이", item: "작업용 매트", note: "4개 × 1,500원", cost: 6000 },
-  { act: "활동 2 · 크런치 말랑이", item: "포장 봉투", note: "17개 × 500원", cost: 8500 },
-  { act: "활동 2 · 크런치 말랑이", item: "위생·정리 용품", note: "물티슈, 휴지, 쓰레기봉투 등", cost: 10000 },
-  { act: "활동 2 · 크런치 말랑이", item: "예비 소모품", note: "장갑, 여분 재료", cost: 9000 },
-  { act: "나눔 · 활동 3", item: "우공비 문제집", note: "망원무지개지역아동센터", cost: 200000 },
-  { act: "나눔 · 활동 4", item: "만화책", cost: 200000 },
+  { act: "활동 2 · 크런치 말랑이", item: "크런치 말랑이 키트", note: "17세트 × 6,000원, 예비 2세트 포함", cost: 102000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "작업용 매트", note: "4개 × 1,500원", cost: 6000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "포장 봉투", note: "17개 × 500원", cost: 8500, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "위생·정리 용품", note: "물티슈, 휴지, 쓰레기봉투 등", cost: 10000, est: true },
+  { act: "활동 2 · 크런치 말랑이", item: "예비 소모품", note: "장갑, 여분 재료", cost: 9000, est: true },
+  { act: "나눔 · 활동 3", item: "우공비 문제집", note: "망원무지개지역아동센터", cost: 200000, est: true },
+  { act: "나눔 · 활동 4", item: "만화책", cost: 200000, est: true },
   { act: "공통", item: "간식", cost: null }
 ];
 
@@ -226,14 +226,21 @@ if (budget) {
     let head = "";
     if (i === 0 || BUDGET[i - 1].act !== b.act) {
       const rows = BUDGET.filter(x => x.act === b.act);
-      head = `<tr class="grp"><th scope="colgroup">${esc(b.act)}</th><td class="num">${rows.length > 1 && rows.every(isNum) ? won(sum(rows)) : ""}</td></tr>`;
+      const badge = !rows.some(isNum) ? "" : rows.some(x => x.est) ? `<span class="badge todo">예상</span>` : `<span class="badge ok">확정</span>`;
+      head = `<tr class="grp"><th scope="colgroup">${esc(b.act)}${badge}</th><td class="num">${rows.length > 1 && rows.every(isNum) ? won(sum(rows)) : ""}</td></tr>`;
     }
-    return `${head}<tr><td>${esc(b.item)}${b.note ? `<small class="shop">${esc(b.note)}</small>` : ""}</td><td class="num">${isNum(b) ? won(b.cost) : pending}</td></tr>`;
+    return `${head}<tr><td>${esc(b.item)}${b.note ? ` <span class="note">(${esc(b.note)})</span>` : ""}</td><td class="num">${isNum(b) ? won(b.cost) : pending}</td></tr>`;
   }).join("");
   const known = BUDGET.filter(isNum), missing = BUDGET.filter(b => !isNum(b));
-  const total = !known.length ? pending
-    : missing.length ? `${won(sum(known))}<small>(${esc(missing.map(b => b.item).join(", "))} 제외)</small>` : won(sum(known));
+  const notes = (known.some(b => b.est) ? ["예상 금액 포함"] : []).concat(missing.length ? [missing.map(b => b.item).join(", ") + " 제외"] : []);
+  const total = !known.length ? pending : won(sum(known)) + (notes.length ? `<small>(${esc(notes.join(", "))})</small>` : "");
   budget.tFoot.innerHTML = `<tr><th scope="row">합계</th><td class="num">${total}</td></tr>`;
+}
+
+/* ---------- 소감 (result.html) ---------- */
+const says = $("says");
+if (says) {
+  says.innerHTML = TEAM.map(m => `<div class="say rv"><b>${esc(m.name)}</b><span class="major">${esc(m.major)}</span>${m.say ? `<p>${esc(m.say)}</p>` : `<span class="badge todo">활동 후 작성</span>`}</div>`).join("");
 }
 
 /* ---------- 스크롤 등장 효과 ---------- */

@@ -727,9 +727,17 @@ section{padding-block:88px}
 .budget .grp+tr td{border-top:0}
 .budget .grp td{padding-top:18px;padding-bottom:6px;font-size:13px;font-weight:700;color:var(--ink)}
 .chk .badge{margin-left:6px;vertical-align:1px}
-.budget .shop{display:block;font-size:12px;color:var(--muted);margin-top:1px}
 .budget .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
 .budget tfoot th,.budget tfoot td{font-weight:800;font-size:16px;background:var(--bg-2)}
 .budget tfoot small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
 .budget .pend{font-size:13px;color:var(--muted);font-weight:500}
 @media (max-width:560px){.budget{font-size:14px}.budget th,.budget td{padding:12px 8px}.budget th:first-child,.budget td:first-child{padding-left:14px}.budget th:last-child,.budget td:last-child{padding-right:14px}.budget .grp th,.budget .grp td{padding-top:16px}.budget tfoot th,.budget tfoot td{font-size:15px}}
+.budget .grp .badge{margin-left:8px;vertical-align:1px;padding:2px 8px;font-size:11px}
+.budget .note{color:var(--muted);font-size:13px}
+/* 결과: 소감 */
+.says{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.say{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:20px 22px;display:grid;gap:4px;align-content:start}
+.say b{font-size:17px;letter-spacing:-.02em}
+.say .major{font-size:13px;color:var(--muted)}
+.say p{margin-top:8px;font-size:15px;color:var(--ink-2)}
+.say .badge{justify-self:start;margin-top:8px}

@@ -70,25 +70,24 @@ const TEAM = [
 
 /* =========================================================
    3. 예산  (result.html)
-   계획 금액은 각 활동 계획서 기준입니다.
    act  : 활동 이름 (같은 활동끼리 붙여 적으면 한 묶음이 되고, 묶음별 소계가 붙습니다)
    item : 품목
-   note : 품목 아래 작은 글씨 (선택) 예) 수량, 단가
-   plan : 계획 금액, 숫자만. 계획에 없던 항목은 null → "–"
-   cost : 실제 금액, 숫자만. 사지 않은 항목은 0 → "–", 아직 모르면 null → "정리 중"
+   note : 품목 아래 작은 글씨 (선택) 예) "11개 × 5,000원"
+   cost : 금액, 숫자만 (예: 12000). 아직 모르면 null → "정리 중"
+   합계는 자동으로 계산됩니다.
    ========================================================= */
 const BUDGET = [
-  { act: "활동 1 · 계산기 클리커", item: "계산기", note: "11개 · 개당 5,000원 (계획 3,000원)", plan: 30000, cost: 55000 },
-  { act: "활동 1 · 계산기 클리커", item: "스티커", note: "캐릭터·알파벳·입체·보석 스티커", plan: 30000, cost: 22930 },
-  { act: "활동 1 · 계산기 클리커", item: "테이프", note: "장식 고정용", plan: 5000, cost: 1000 },
-  { act: "활동 1 · 계산기 클리커", item: "포장 봉투·위생용품·예비비", plan: 16000, cost: 0 },
-  { act: "활동 2 · 크런치 말랑이", item: "크런치 말랑이 키트", note: "계획 17세트 × 6,000원 (예비 2세트 포함)", plan: 102000, cost: null },
-  { act: "활동 2 · 크런치 말랑이", item: "작업용 매트", plan: 6000, cost: null },
-  { act: "활동 2 · 크런치 말랑이", item: "포장 봉투", plan: 8500, cost: null },
-  { act: "활동 2 · 크런치 말랑이", item: "위생·정리 용품, 예비 소모품", plan: 19000, cost: null },
-  { act: "나눔 · 활동 3", item: "우공비 문제집", note: "망원무지개지역아동센터", plan: 200000, cost: null },
-  { act: "나눔 · 활동 4", item: "만화책", plan: 200000, cost: null },
-  { act: "공통", item: "간식", plan: null, cost: null }
+  { act: "활동 1 · 계산기 클리커", item: "계산기", note: "11개 × 5,000원", cost: 55000 },
+  { act: "활동 1 · 계산기 클리커", item: "스티커", note: "캐릭터·알파벳·입체·보석 스티커", cost: 22930 },
+  { act: "활동 1 · 계산기 클리커", item: "양면테이프", note: "장식 고정용", cost: 1000 },
+  { act: "활동 2 · 크런치 말랑이", item: "크런치 말랑이 키트", note: "17세트 × 6,000원 (예비 2세트 포함)", cost: 102000 },
+  { act: "활동 2 · 크런치 말랑이", item: "작업용 매트", note: "4개 × 1,500원", cost: 6000 },
+  { act: "활동 2 · 크런치 말랑이", item: "포장 봉투", note: "17개 × 500원", cost: 8500 },
+  { act: "활동 2 · 크런치 말랑이", item: "위생·정리 용품", note: "물티슈, 휴지, 쓰레기봉투 등", cost: 10000 },
+  { act: "활동 2 · 크런치 말랑이", item: "예비 소모품", note: "장갑, 여분 재료", cost: 9000 },
+  { act: "나눔 · 활동 3", item: "우공비 문제집", note: "망원무지개지역아동센터", cost: 200000 },
+  { act: "나눔 · 활동 4", item: "만화책", cost: 200000 },
+  { act: "공통", item: "간식", cost: null }
 ];
 
 /* ---------- 모바일 메뉴 ---------- */
@@ -218,30 +217,21 @@ if (teamGrid) {
 const budget = $("budget-table");
 if (budget) {
   const won = n => n.toLocaleString("ko-KR") + "원";
-  const isNum = v => typeof v === "number";
+  const isNum = b => typeof b.cost === "number";
   const pending = `<span class="pend">정리 중</span>`;
-  const planCell = v => isNum(v) && v ? won(v) : "–";
-  const costCell = v => !isNum(v) ? pending : v ? won(v) : "–";
-  /* 소계·합계: 계획은 적힌 것만 더하고, 실제는 모두 정리됐을 때만 보여 줍니다 */
-  const total = (rows, partialNote) => {
-    const plan = rows.reduce((t, b) => t + (isNum(b.plan) ? b.plan : 0), 0);
-    const known = rows.filter(b => isNum(b.cost));
-    const sum = known.reduce((t, b) => t + b.cost, 0);
-    const cost = known.length === rows.length ? won(sum)
-      : partialNote && known.some(b => b.cost) ? `${won(sum)}<small>(정리된 항목만)</small>` : pending;
-    return [plan ? won(plan) : "–", cost];
-  };
+  const sum = rows => rows.reduce((t, b) => t + b.cost, 0);
   budget.tBodies[0].innerHTML = BUDGET.map((b, i) => {
     let head = "";
     if (i === 0 || BUDGET[i - 1].act !== b.act) {
       const rows = BUDGET.filter(x => x.act === b.act);
-      const [p, c] = rows.length > 1 ? total(rows) : ["", ""];
-      head = `<tr class="grp"><th scope="colgroup">${esc(b.act)}</th><td class="num">${p}</td><td class="num">${c}</td></tr>`;
+      head = `<tr class="grp"><th scope="colgroup">${esc(b.act)}</th><td class="num">${rows.length > 1 && rows.every(isNum) ? won(sum(rows)) : ""}</td></tr>`;
     }
-    return `${head}<tr><td>${esc(b.item)}${b.note ? `<small class="shop">${esc(b.note)}</small>` : ""}</td><td class="num">${planCell(b.plan)}</td><td class="num">${costCell(b.cost)}</td></tr>`;
+    return `${head}<tr><td>${esc(b.item)}${b.note ? `<small class="shop">${esc(b.note)}</small>` : ""}</td><td class="num">${isNum(b) ? won(b.cost) : pending}</td></tr>`;
   }).join("");
-  const [tp, tc] = total(BUDGET, true);
-  budget.tFoot.innerHTML = `<tr><th scope="row">합계</th><td class="num">${tp}</td><td class="num">${tc}</td></tr>`;
+  const known = BUDGET.filter(isNum), missing = BUDGET.filter(b => !isNum(b));
+  const total = !known.length ? pending
+    : missing.length ? `${won(sum(known))}<small>(${esc(missing.map(b => b.item).join(", "))} 제외)</small>` : won(sum(known));
+  budget.tFoot.innerHTML = `<tr><th scope="row">합계</th><td class="num">${total}</td></tr>`;
 }
 
 /* ---------- 스크롤 등장 효과 ---------- */

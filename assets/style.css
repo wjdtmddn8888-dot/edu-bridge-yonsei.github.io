@@ -726,9 +726,6 @@ section{padding-block:88px}
 .budget .grp th{padding-top:18px;padding-bottom:6px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:-.01em}
 .budget .grp+tr td{border-top:0}
 .budget .grp td{padding-top:18px;padding-bottom:6px;font-size:13px;font-weight:700;color:var(--ink)}
-.budget .grp td.num{font-weight:600;color:var(--muted)}
-.budget .grp td.num+td.num{font-weight:700;color:var(--ink)}
-.budget tfoot td.num:first-of-type{color:var(--muted);font-weight:700}
 .chk .badge{margin-left:6px;vertical-align:1px}
 .budget .shop{display:block;font-size:12px;color:var(--muted);margin-top:1px}
 .budget .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}

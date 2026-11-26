@@ -734,10 +734,3 @@ section{padding-block:88px}
 @media (max-width:560px){.budget{font-size:14px}.budget th,.budget td{padding:12px 8px}.budget th:first-child,.budget td:first-child{padding-left:14px}.budget th:last-child,.budget td:last-child{padding-right:14px}.budget .grp th,.budget .grp td{padding-top:16px}.budget tfoot th,.budget tfoot td{font-size:15px}}
 .budget .grp .badge{margin-left:8px;vertical-align:1px;padding:2px 8px;font-size:11px}
 .budget .note{color:var(--muted);font-size:13px}
-/* 결과: 소감 */
-.says{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-.say{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:20px 22px;display:grid;gap:4px;align-content:start}
-.say b{font-size:17px;letter-spacing:-.02em}
-.say .major{font-size:13px;color:var(--muted)}
-.say p{margin-top:8px;font-size:15px;color:var(--ink-2)}
-.say .badge{justify-self:start;margin-top:8px}

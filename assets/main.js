@@ -56,8 +56,7 @@ const ARCH_GROUPS = [
 ];
 
 /* =========================================================
-   2. 팀원  (team.html, result.html 소감)
-   say : 결과 페이지에 나올 소감 (선택) 예) say: "아이들이 ..."
+   2. 팀원  (team.html)
    ========================================================= */
 const TEAM = [
   { name: "김태연", major: "정치외교학과" },
@@ -235,12 +234,6 @@ if (budget) {
   const notes = (known.some(b => b.est) ? ["예상 금액 포함"] : []).concat(missing.length ? [missing.map(b => b.item).join(", ") + " 제외"] : []);
   const total = !known.length ? pending : won(sum(known)) + (notes.length ? `<small>(${esc(notes.join(", "))})</small>` : "");
   budget.tFoot.innerHTML = `<tr><th scope="row">합계</th><td class="num">${total}</td></tr>`;
-}
-
-/* ---------- 소감 (result.html) ---------- */
-const says = $("says");
-if (says) {
-  says.innerHTML = TEAM.map(m => `<div class="say rv"><b>${esc(m.name)}</b><span class="major">${esc(m.major)}</span>${m.say ? `<p>${esc(m.say)}</p>` : `<span class="badge todo">활동 후 작성</span>`}</div>`).join("");
 }
 
 /* ---------- 스크롤 등장 효과 ---------- */

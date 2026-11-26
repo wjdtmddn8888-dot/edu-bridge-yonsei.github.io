@@ -459,6 +459,9 @@ a.org:hover{color:var(--accent)}
 .acard h3{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:-.01em;margin-bottom:-6px}
 .acard .tl li{grid-template-columns:48px 1fr}
 .targets.two{grid-template-columns:1fr 1fr}
+.targets.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.targets.three .target{align-content:start}
+@media (max-width:960px){.targets.three{grid-template-columns:1fr}}
 .local+.local,.targets+.local{margin-top:16px}
 .mini .kicker{display:block;margin-bottom:8px}
 .mini h3+p{margin-top:-8px}

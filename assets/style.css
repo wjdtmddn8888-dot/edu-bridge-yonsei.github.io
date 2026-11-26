@@ -471,6 +471,11 @@ a.org:hover{color:var(--accent)}
 @media (max-width:760px){.targets.two{grid-template-columns:1fr}}
 @media (max-width:520px){.acard{padding:24px}.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(2n){border-right:0}.facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 .draft-note{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:14px;padding:14px 16px;background:var(--bg-2)}
+/* 활동 페이지: 만들기 / 나눔 카테고리 머리글 */
+.page-sec .cat-head{margin-bottom:24px;scroll-margin-top:88px}
+.cat-head h2{font-size:clamp(28px,3.4vw,38px)}
+.cat-head.sp{margin-top:72px}
+.acard>.src{margin-top:-4px}
 /* 홈 히어로: 학교 사진 위에 일정 카드를 겹쳐 놓음 */
 /* 원본 사진이 639x312라서 자르거나 키우지 않고 원래 비율 그대로 보여 줌 */
 .visual .photo{aspect-ratio:639/312}

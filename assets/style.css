@@ -708,3 +708,10 @@ section{padding-block:88px}
 .chart .chart-k{font-size:12px !important;font-weight:700;color:rgba(255,255,255,.7) !important;margin-top:6px;letter-spacing:.02em}
 .chart .chart-k:first-child{margin-top:0}
 .mini>.card-ph{margin:-28px -28px 20px;border-radius:20px 20px 0 0}
+/* 소개: 방향을 정하기까지 (사진 + 카드 세로 배치) */
+.story-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:16px;align-items:stretch}
+.story-ph{margin:0;position:relative;border-radius:16px;overflow:hidden;min-height:100%;background:var(--bg-2)}
+.story-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.story-ph figcaption{position:absolute;left:12px;bottom:12px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.55);padding:4px 10px;border-radius:999px}
+.story-cards .target{align-content:start}
+@media (max-width:860px){.story-split{grid-template-columns:1fr}.story-ph{min-height:0;aspect-ratio:4/3}}

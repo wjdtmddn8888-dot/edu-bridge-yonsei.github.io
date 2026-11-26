@@ -31,7 +31,7 @@ const ARCH = [
   { id: "seodaemun", group: "prep", tag: "준비", t: "서대문교육복지센터 사전 미팅", st: "ok", date: "2026.11.05",
     place: "서대문교육복지센터",
     d: "서대문교육복지센터와 사전 미팅을 했고, 센터의 소개로 은평구 서울특별시립 아동푸른센터와 연결됐습니다.",
-    imgs: ["img/meeting-seodaemun.jpg"] },
+    imgs: ["img/meeting-seodaemun.jpg", "img/meeting-seodaemun-2.jpg"] },
   { id: "plan", group: "prep", tag: "준비", t: "활동 기획안 작성", st: "ok", date: "2026.11",
     d: "계산기 클리커 만들기와 크런치 말랑이 만들기의 진행 순서, 준비물, 멘토 역할을 정리했습니다.",
     link: ["activity.html", "활동 계획 보기"] },

@@ -27,6 +27,7 @@
 예전 주소(`map.html`, `problem.html`, `program.html`, `kit.html`)는 새 페이지로 자동 이동합니다.
 
 ## 공용 파일
+- 각 HTML에서 `style.css?v=…`, `main.js?v=…`처럼 버전 숫자를 붙여 둡니다. CSS나 JS를 고치면 이 숫자를 8개 파일 모두 새 값으로 바꿔야 방문자 브라우저에 남은 예전 파일 대신 새 파일을 받습니다. (GitHub Pages는 파일을 10분간 캐시합니다.)
 - `assets/style.css` — 모든 페이지 공용 스타일
 - `assets/main.js` — 공용 스크립트 + 데이터 (맨 위에 모여 있음)
 - `assets/pretendard.woff2` — 폰트

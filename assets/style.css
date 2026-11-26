@@ -567,6 +567,10 @@ section{padding-block:88px}
 .tl-card h3{font-size:19px}
 .tl-card p{font-size:15px;color:var(--ink-2)}
 .tl-img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin-top:10px;border:1px solid var(--line)}
+.tl-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.tl-gallery a{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.tl-gallery img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .3s}
+.tl-gallery a:hover img{transform:scale(1.03)}
 .tl-empty{padding:24px 0}
 @media (max-width:600px){
   .tl-item{grid-template-columns:20px minmax(0,1fr);column-gap:12px;row-gap:6px;padding-bottom:20px}

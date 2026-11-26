@@ -9,11 +9,13 @@ const $ = id => document.getElementById(id);
    1. 활동 기록  (archive.html)
    st: "ok" 완료 / "next" 진행 예정 / "todo" 예정
    사진은 img/ 에 넣고 img: "img/파일명.jpg" 를 추가하세요.
+   여러 장이면 imgs: ["img/a.jpg", "img/b.jpg"] 처럼 적으면 됩니다.
    사진 공개 여부는 기관과 확인하세요.
    ========================================================= */
 const ARCH = [
   { tag: "준비", t: "협력 기관 조사와 연락", d: "서울 지역 학교 밖 청소년 지원센터, 교육복지센터, 청소년센터, 복지관 등 20여 곳을 조사하고 연락을 시도했습니다.", st: "ok", date: "2026.09.21" },
-  { tag: "준비", t: "마포구 학교 밖 청소년 도움센터 친구랑 사전 미팅", d: "친구랑과 사전 미팅을 했습니다. 활동으로는 이어지지 않았습니다.", st: "ok", date: "2026.10.08" },
+  { tag: "준비", t: "마포구 학교 밖 청소년 도움센터 친구랑 사전 미팅", d: "친구랑과 사전 미팅을 했습니다. 활동으로는 이어지지 않았습니다.", st: "ok", date: "2026.10.08",
+    imgs: ["img/chingurang-1.jpg", "img/chingurang-2.jpg", "img/chingurang-3.jpg", "img/chingurang-4.jpg"] },
   { tag: "준비", t: "서대문교육복지센터 사전 미팅", d: "서대문교육복지센터와 사전 미팅을 했고, 센터의 소개로 은평구 서울특별시립 아동푸른센터와 연결됐습니다.", st: "ok", date: "2026.11.05" },
   { tag: "준비", t: "활동 기획안 작성", d: "계산기 클리커 만들기와 크런치 말랑이 만들기의 진행 순서, 준비물, 멘토 역할을 정리했습니다.", st: "ok", date: "2026.11" },
   { tag: "활동 1", t: "나만의 계산기 클리커 만들기", d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.", st: "next", date: "2026.11.27" },
@@ -56,7 +58,10 @@ if (cards) {
     cards.innerHTML = rows.length ? rows.map(a => {
       const [c, l] = ST[a.st];
       /* 사진이 있는 기록만 사진을 보여 줍니다. 없으면 글만 나옵니다. */
-      const ph = a.img ? `<img class="tl-img" src="${esc(a.img)}" alt="${esc(a.t)} 사진" loading="lazy">` : "";
+      const pics = a.imgs || (a.img ? [a.img] : []);
+      const ph = pics.length === 1
+        ? `<img class="tl-img" src="${esc(pics[0])}" alt="${esc(a.t)} 사진" loading="lazy">`
+        : pics.length ? `<div class="tl-gallery">${pics.map((src, i) => `<a href="${esc(src)}" target="_blank" rel="noopener"><img src="${esc(src)}" alt="${esc(a.t)} 사진 ${i + 1}" loading="lazy"></a>`).join("")}</div>` : "";
       return `<li class="tl-item ${c}"><time>${esc(a.date)}</time><span class="tl-dot" aria-hidden="true"></span><article class="tl-card"><div class="meta"><span class="tl-tag">${esc(a.tag)}</span><span class="badge ${c}">${l}</span></div><h3>${esc(a.t)}</h3><p>${esc(a.d)}</p>${ph}</article></li>`;
     }).join("") : `<li class="tl-empty muted">해당하는 기록이 아직 없어요.</li>`;
   };

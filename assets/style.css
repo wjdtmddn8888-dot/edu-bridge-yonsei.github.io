@@ -772,3 +772,10 @@ section{padding-block:88px}
 .tile:not(.t-why):has(.tile-go):hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
 .tile:has(.tile-go):hover .go{transform:translateX(3px);color:var(--accent)}
 .t-why:has(.tile-go):hover .go{color:#fff}
+
+/* 자세히 보기: 사진 설명, 사진 수가 홀수면 첫 장을 크게 */
+.rec-gal figure{margin:0;display:grid;gap:6px;min-width:0}
+.rec-gal figcaption{font-size:13px;color:var(--muted);line-height:1.45}
+.rec-gal.odd figure:first-child{grid-column:1/-1}
+.rec-gal.odd figure:first-child img{aspect-ratio:16/10}
+.lb figcaption{max-width:90vw;text-align:center}

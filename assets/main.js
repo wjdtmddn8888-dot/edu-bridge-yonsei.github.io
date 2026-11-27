@@ -19,6 +19,7 @@ const $ = id => document.getElementById(id);
    more  : 자세히 보기에만 나오는 문단들 (선택) 예) more: ["첫 문단", "둘째 문단"]
    place : 장소 (선택)   facts : 그 밖의 정보 (선택) 예) facts: [["시간", "90분"]]
    imgs  : 사진 목록 (선택) 예) imgs: ["img/a.jpg", "img/b.jpg"]. 첫 장이 카드 표지가 됩니다.
+   caps  : 사진 설명 (선택). imgs와 같은 순서로 예) caps: ["샘플", "준비물"]
    link  : 관련 페이지 (선택) 예) link: ["activity.html#act1", "활동 계획 보기"]
    사진 공개 여부는 기관과 확인하세요.
    ========================================================= */
@@ -39,12 +40,16 @@ const ARCH = [
   { id: "plan", group: "prep", tag: "준비", t: "활동 기획안 작성", st: "ok", date: "2026.11",
     d: "계산기 클리커 만들기와 크런치 말랑이 만들기의 진행 순서, 준비물, 멘토 역할을 정리했습니다.",
     link: ["activity.html", "활동 계획 보기"] },
-  { id: "act1", group: "act", tag: "활동 1", t: "나만의 계산기 클리커 만들기", date: "2026.11.27",
-    place: "서울특별시립 아동푸른센터", facts: [["시간", "90분"], ["참여", "11명"]],
-    d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.",
+  { id: "act1", group: "act", tag: "활동 1", t: "나만의 계산기 클리커 만들기", st: "ok", date: "2026.11.27",
+    place: "서울특별시립 아동푸른센터", facts: [["시간", "90분"], ["참여", "10명"]],
+    d: "서울특별시립 아동푸른센터에서 계산기 클리커 만들기를 진행했습니다. 만들기를 마친 뒤에는 몸으로 말하기 게임도 함께 했습니다.",
+    more: ["활동을 마친 뒤 참여한 아이들 모두에게 연세대학교 기념품 텀블러를 나눠 주었습니다.",
+      "끝나고 설문도 받았습니다. 활동이 재미있었는지, 만드는 방법 설명이 쉬웠는지, 대학생 선생님들이 친절했는지, 만든 클리커가 마음에 드는지, 활동 시간은 어땠는지, 다음에도 참여하고 싶은지를 물었습니다."],
+    imgs: ["img/act1-1.jpg", "img/act1-2.jpg", "img/act1-3.jpg", "img/act1-work-1.jpg", "img/act1-work-2.jpg", "img/act1-work-3.jpg", "img/act1-work-4.jpg", "img/act1-4.jpg", "img/act1-5.jpg", "img/act1-tumbler.jpg", "img/act1-survey.jpg"],
+    caps: ["미리 만들어 본 샘플", "준비물: 스티커와 계산기", "활동 모습", "아이들이 완성한 계산기", "아이들이 완성한 계산기", "아이들이 완성한 계산기", "아이들이 완성한 계산기", "클리커 만들기 마무리", "몸으로 말하기, 앞에 나와 설명하는 아이", "아이들 모두에게 나눠 준 연세대학교 기념품 텀블러", "활동을 마친 뒤 받은 설문지"],
     link: ["activity.html#act1", "활동 1 계획 보기"] },
   { id: "act2", group: "act", tag: "활동 2", t: "크런치 말랑이 만들기", date: "2026.12.07",
-    place: "서울특별시립 아동푸른센터", facts: [["시간", "90분"]],
+    place: "서울특별시립 아동푸른센터", facts: [["시간", "90분"], ["참여", "10명"]],
     d: "서울특별시립 아동푸른센터에서 진행합니다. 활동이 끝나면 소감을 이곳에 기록합니다.",
     link: ["activity.html#act2", "활동 2 계획 보기"] },
   { id: "act3", group: "share", tag: "활동 3", t: "우공비 문제집 나눔", date: "2026.12.04",
@@ -170,8 +175,9 @@ if (arch) {
   const showLb = i => {
     lbIdx = (i + lbList.length) % lbList.length;
     const img = lb.querySelector("img");
-    img.src = lbList[lbIdx]; img.alt = `${cur.t} 사진 ${lbIdx + 1}`;
-    lb.querySelector("figcaption").textContent = lbList.length > 1 ? `${lbIdx + 1} / ${lbList.length}` : "";
+    const cap = (cur.caps || [])[lbIdx] || "";
+    img.src = lbList[lbIdx]; img.alt = cap || `${cur.t} 사진 ${lbIdx + 1}`;
+    lb.querySelector("figcaption").textContent = [lbList.length > 1 ? `${lbIdx + 1} / ${lbList.length}` : "", cap].filter(Boolean).join("  ·  ");
     lb.classList.toggle("single", lbList.length < 2);
   };
   const openLb = i => { lbList = pics(cur); showLb(i); if (!lb.open) lb.showModal(); lock(); };
@@ -183,7 +189,7 @@ if (arch) {
       <h2 id="rec-title">${esc(a.t)}</h2>
       <dl class="rec-facts">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
       <div class="rec-text"><p>${esc(a.d)}</p>${(a.more || []).map(m => `<p>${esc(m)}</p>`).join("")}</div>
-      ${p.length ? `<div class="rec-gal n${Math.min(p.length, 3)}">${p.map((src, i) => `<button type="button" data-i="${i}" aria-label="사진 ${i + 1} 크게 보기"><img src="${esc(src)}" alt="${esc(a.t)} 사진 ${i + 1}" loading="lazy"></button>`).join("")}</div>` : ""}
+      ${p.length ? `<div class="rec-gal n${Math.min(p.length, 3)}${p.length % 2 && p.length > 1 ? " odd" : ""}">${p.map((src, i) => { const cap = (a.caps || [])[i]; return `<figure><button type="button" data-i="${i}" aria-label="사진 ${i + 1} 크게 보기"><img src="${esc(src)}" alt="${esc(cap || a.t + " 사진 " + (i + 1))}" loading="lazy"></button>${cap ? `<figcaption>${esc(cap)}</figcaption>` : ""}</figure>`; }).join("")}</div>${a.group !== "prep" ? `<p class="rec-photo-note">아이들의 얼굴은 나오지 않게 찍거나 가렸습니다.</p>` : ""}` : ""}
       ${a.link ? `<a class="rec-link" href="${esc(a.link[0])}">${esc(a.link[1])} ${ARR("M4 10h12M11 5l5 5-5 5")}</a>` : ""}</div>`;
   };
   const open = id => {

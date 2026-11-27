@@ -772,3 +772,75 @@ section{padding-block:88px}
 .tile:not(.t-why):has(.tile-go):hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
 .tile:has(.tile-go):hover .go{transform:translateX(3px);color:var(--accent)}
 .t-why:has(.tile-go):hover .go{color:#fff}
+
+/* 자세히 보기: 사진 설명, 사진 수가 홀수면 첫 장을 크게 */
+.rec-gal figure{margin:0;display:grid;gap:6px;min-width:0}
+.rec-gal figcaption{font-size:13px;color:var(--muted);line-height:1.45}
+.rec-gal.odd figure:first-child{grid-column:1/-1}
+.rec-gal.odd figure:first-child img{aspect-ratio:16/10}
+.lb figcaption{max-width:90vw;text-align:center}
+
+/* ===== v9: 활동 사진 (홈 활동 장면 · 활동 카드 · 결과) ===== */
+.moments-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 24px;flex-wrap:wrap;margin-bottom:28px}
+.moments-head .head{margin-bottom:0}
+.mosaic{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:220px;gap:12px;color:#fff}
+.mosaic figure{position:relative;margin:0;border-radius:16px;overflow:hidden;background:var(--bg-2);min-width:0}
+.mosaic .m-big{grid-column:span 2;grid-row:span 2}
+.mosaic img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.mosaic figure:hover img{transform:scale(1.04)}
+.mosaic figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;font-size:13px;font-weight:600;background:linear-gradient(transparent,rgba(5,10,20,.62))}
+.mosaic.m3{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:240px;margin-top:16px}
+@media (max-width:860px){.mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:170px}.mosaic.m3{grid-template-columns:1fr 1fr}.mosaic.m3 figure:first-child{grid-column:1/-1}}
+@media (max-width:480px){.mosaic{grid-auto-rows:140px;gap:8px}.mosaic .m-big{grid-row:span 2}.mosaic.m3{grid-auto-rows:150px}}
+.act-photos{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px}
+.act-photos img{width:100%;height:200px;object-fit:cover;border-radius:12px;display:block;min-width:0;transition:opacity .2s}
+.act-photos:hover img{opacity:.92}
+@media (max-width:520px){.act-photos{gap:6px}.act-photos img{height:150px}}
+.acard>.rec-link{margin-top:4px}
+
+/* 활동 기록 사진 아래 안내 */
+.rec-photo-note{font-size:13px;color:var(--muted);margin-top:-6px}
+
+/* ===== v10: 활동 페이지 사진 (센터 사진 · 사진 자리 · 멘토 사진) ===== */
+.target.with-ph{display:grid;grid-template-columns:minmax(0,1fr) 300px;column-gap:28px;align-content:center}
+.target.with-ph>*:not(.side-ph){grid-column:1}
+.side-ph{grid-column:2;grid-row:1/span 4;margin:-8px -8px -8px 0;border-radius:14px;overflow:hidden;background:var(--bg-2);min-height:170px}
+.side-ph img{width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:760px){.target.with-ph{grid-template-columns:1fr}.side-ph{grid-column:1;grid-row:auto;margin:-8px -8px 12px;aspect-ratio:16/9;min-height:0}}
+.act-photos-empty{height:200px;border:1px dashed var(--line);border-radius:12px;background:var(--bg-2);display:grid;place-content:center;justify-items:center;gap:8px;color:var(--muted);font-size:14px;text-align:center;padding:0 16px}
+.act-photos-empty svg{width:28px;height:28px;opacity:.6}
+@media (max-width:520px){.act-photos-empty{height:150px}}
+.mentor-ph{margin:0 0 16px}
+
+/* ===== v11: 시안 E — 흰 페이지 머리 + 연파랑 박스 (그라데이션·빛번짐 제거) ===== */
+:root{--tint:#eef4ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tint:#111c33}}
+:root[data-theme="dark"]{--tint:#111c33}
+/* 페이지 머리: 시안 A — 단색 연회색, 빛번짐 없음 */
+.phead{background:var(--bg-2)}
+.phead::before{display:none}
+/* 큰 박스: 연파랑 단색, 진한 글자 */
+.t-why,.xcard.feature,.big.dark{background:var(--tint);border-color:transparent;color:var(--ink)}
+.t-why p,.xcard.feature p,.big.dark p{color:var(--ink-2)}
+.t-why .w,.t-why .k code,.t-why .go,.t-why .note,.t-why .chart-k,.big.dark .src,.big.dark b em,.xcard.feature .go{color:var(--muted)}
+.t-why .note a,.big.dark .src a{color:var(--accent)}
+.t-why .gaprow{color:var(--ink-2)}
+.t-why .gaprow strong{color:var(--ink)}
+.t-why .bar{background:color-mix(in srgb,var(--ink) 9%,transparent)}
+.t-why .bar i{background:var(--brand)}
+.t-why .bar i.b{background:var(--ivy)}
+.t-why:has(.tile-go):hover .go{color:var(--accent)}
+.t-why:hover{border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.xcard.feature .ic{background:var(--surface);color:var(--accent)}
+.xcard.feature:hover{border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.story .xcard.feature .num{color:var(--accent)}
+.xcard.feature .meter i{background:color-mix(in srgb,var(--ink) 9%,transparent)}
+.xcard.feature .meter i.on{background:var(--accent)}
+/* 박스 안 막대그래프 (소개 Why, 배경 수치 박스) */
+.chart .chart-k{color:var(--muted) !important}
+.chart .gaprow{color:var(--ink-2)}
+.chart .gaprow strong{color:var(--ink)}
+.chart .bar{background:color-mix(in srgb,var(--ink) 9%,transparent)}
+.chart .bar i{background:var(--brand)}
+.chart .bar i.b{background:var(--ivy)}
+.big.dark b{color:var(--ink)}

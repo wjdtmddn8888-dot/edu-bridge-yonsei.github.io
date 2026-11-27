@@ -811,3 +811,37 @@ section{padding-block:88px}
 .act-photos-empty svg{width:28px;height:28px;opacity:.6}
 @media (max-width:520px){.act-photos-empty{height:150px}}
 .mentor-ph{margin:0 0 16px}
+
+/* ===== v11: 시안 E — 흰 페이지 머리 + 연파랑 박스 (그라데이션·빛번짐 제거) ===== */
+:root{--tint:#eef4ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tint:#111c33}}
+:root[data-theme="dark"]{--tint:#111c33}
+/* 페이지 머리: 흰 배경, 제목 위 짧은 파란 줄 */
+.phead{background:var(--bg)}
+.phead::before{display:none}
+.phead h1::before{content:"";display:block;width:36px;height:4px;border-radius:2px;background:var(--accent);margin-bottom:18px}
+/* 큰 박스: 연파랑 단색, 진한 글자 */
+.t-why,.xcard.feature,.big.dark{background:var(--tint);border-color:transparent;color:var(--ink)}
+.t-why p,.xcard.feature p,.big.dark p{color:var(--ink-2)}
+.t-why .w,.t-why .k code,.t-why .go,.t-why .note,.t-why .chart-k,.big.dark .src,.big.dark b em,.xcard.feature .go{color:var(--muted)}
+.t-why .note a,.big.dark .src a{color:var(--accent)}
+.t-why .gaprow{color:var(--ink-2)}
+.t-why .gaprow strong{color:var(--ink)}
+.t-why .bar{background:color-mix(in srgb,var(--ink) 9%,transparent)}
+.t-why .bar i{background:var(--brand)}
+.t-why .bar i.b{background:var(--ivy)}
+.t-why:has(.tile-go):hover .go{color:var(--accent)}
+.t-why:hover{border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.xcard.feature .ic{background:var(--surface);color:var(--accent)}
+.xcard.feature:hover{border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.story .xcard.feature .num{color:var(--accent)}
+.xcard.feature .meter i{background:color-mix(in srgb,var(--ink) 9%,transparent)}
+.xcard.feature .meter i.on{background:var(--accent)}
+/* 박스 안 막대그래프 (소개 Why, 배경 수치 박스) */
+.chart .chart-k{color:var(--muted) !important}
+.chart .gaprow{color:var(--ink-2)}
+.chart .gaprow strong{color:var(--ink)}
+.chart .bar{background:color-mix(in srgb,var(--ink) 9%,transparent)}
+.chart .bar i{background:var(--brand)}
+.chart .bar i.b{background:var(--ivy)}
+.big.dark b{color:var(--ink)}

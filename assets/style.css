@@ -816,10 +816,9 @@ section{padding-block:88px}
 :root{--tint:#eef4ff}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tint:#111c33}}
 :root[data-theme="dark"]{--tint:#111c33}
-/* 페이지 머리: 흰 배경, 제목 위 짧은 파란 줄 */
-.phead{background:var(--bg)}
+/* 페이지 머리: 시안 A — 단색 연회색, 빛번짐 없음 */
+.phead{background:var(--bg-2)}
 .phead::before{display:none}
-.phead h1::before{content:"";display:block;width:36px;height:4px;border-radius:2px;background:var(--accent);margin-bottom:18px}
 /* 큰 박스: 연파랑 단색, 진한 글자 */
 .t-why,.xcard.feature,.big.dark{background:var(--tint);border-color:transparent;color:var(--ink)}
 .t-why p,.xcard.feature p,.big.dark p{color:var(--ink-2)}

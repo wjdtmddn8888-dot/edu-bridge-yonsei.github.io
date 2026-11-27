@@ -797,3 +797,6 @@ section{padding-block:88px}
 .act-photos:hover img{opacity:.92}
 @media (max-width:520px){.act-photos{gap:6px}.act-photos img{height:150px}}
 .acard>.rec-link{margin-top:4px}
+
+/* 활동 기록 사진 아래 안내 */
+.rec-photo-note{font-size:13px;color:var(--muted);margin-top:-6px}

@@ -189,7 +189,7 @@ if (arch) {
       <h2 id="rec-title">${esc(a.t)}</h2>
       <dl class="rec-facts">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
       <div class="rec-text"><p>${esc(a.d)}</p>${(a.more || []).map(m => `<p>${esc(m)}</p>`).join("")}</div>
-      ${p.length ? `<div class="rec-gal n${Math.min(p.length, 3)}${p.length % 2 && p.length > 1 ? " odd" : ""}">${p.map((src, i) => { const cap = (a.caps || [])[i]; return `<figure><button type="button" data-i="${i}" aria-label="사진 ${i + 1} 크게 보기"><img src="${esc(src)}" alt="${esc(cap || a.t + " 사진 " + (i + 1))}" loading="lazy"></button>${cap ? `<figcaption>${esc(cap)}</figcaption>` : ""}</figure>`; }).join("")}</div>` : ""}
+      ${p.length ? `<div class="rec-gal n${Math.min(p.length, 3)}${p.length % 2 && p.length > 1 ? " odd" : ""}">${p.map((src, i) => { const cap = (a.caps || [])[i]; return `<figure><button type="button" data-i="${i}" aria-label="사진 ${i + 1} 크게 보기"><img src="${esc(src)}" alt="${esc(cap || a.t + " 사진 " + (i + 1))}" loading="lazy"></button>${cap ? `<figcaption>${esc(cap)}</figcaption>` : ""}</figure>`; }).join("")}</div>${a.group !== "prep" ? `<p class="rec-photo-note">아이들의 얼굴은 나오지 않게 찍거나 가렸습니다.</p>` : ""}` : ""}
       ${a.link ? `<a class="rec-link" href="${esc(a.link[0])}">${esc(a.link[1])} ${ARR("M4 10h12M11 5l5 5-5 5")}</a>` : ""}</div>`;
   };
   const open = id => {

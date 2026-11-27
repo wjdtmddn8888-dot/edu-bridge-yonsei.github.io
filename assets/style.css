@@ -813,9 +813,9 @@ section{padding-block:88px}
 .mentor-ph{margin:0 0 16px}
 
 /* ===== v11: 시안 E — 흰 페이지 머리 + 연파랑 박스 (그라데이션·빛번짐 제거) ===== */
-:root{--tint:#eef4ff}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tint:#111c33}}
-:root[data-theme="dark"]{--tint:#111c33}
+:root{--tint:#dce8ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tint:#152544}}
+:root[data-theme="dark"]{--tint:#152544}
 /* 페이지 머리: 시안 A — 단색 연회색, 빛번짐 없음 */
 .phead{background:var(--bg-2)}
 .phead::before{display:none}
